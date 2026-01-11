@@ -1,48 +1,60 @@
 .hero {
   min-height: calc(100vh - 60px);
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
   background-color: var(--color-white);
-  padding: 60px 40px;
+  padding: 0 40px 60px 40px; /* No top padding, only sides and bottom */
+  position: relative;
+  overflow: hidden; /* Prevent letters from escaping */
 }
 
-.hero-container {
+.hero-dangling-container {
+  position: relative;
   width: 100%;
-  max-width: 1200px;
+  height: 100%;
+  min-height: 600px; /* Enough space for swinging letters */
+  margin-top: -52px; /* Pull up to connect with nav bar */
 }
 
-.hero-title {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.hero-word {
-  font-size: 120px;
-  font-weight: var(--font-weight-bold);
-  line-height: 0.85;
-  margin: 0;
-  text-transform: uppercase;
-  letter-spacing: -0.05em;
-  color: var(--color-black);
-}
-
-.hero-word-offset {
-  margin-left: 100px;
+/* Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 /* Mobile */
 @media (max-width: 768px) {
   .hero {
-    padding: 40px 20px;
+    padding: 0 20px 40px 20px; /* No top padding, only sides and bottom */
+    min-height: calc(100vh - 45px);
   }
 
-  .hero-word {
-    font-size: 60px;
+  .hero-dangling-container {
+    min-height: 450px;
+  }
+}
+
+/* Reduced motion: Show static text */
+@media (prefers-reduced-motion: reduce) {
+  .hero-dangling-container {
+    display: none;
   }
 
-  .hero-word-offset {
-    margin-left: 40px;
+  .sr-only {
+    /* Make h1 visible */
+    position: static;
+    width: auto;
+    height: auto;
+    clip: auto;
+    font-size: var(--font-size-h1);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-black);
+    text-align: left;
+    padding: 60px 0;
   }
 }

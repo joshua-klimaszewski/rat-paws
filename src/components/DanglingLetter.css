@@ -1,0 +1,21 @@
+.dangling-letter {
+  will-change: transform;
+  transform: translateZ(0); /* GPU acceleration */
+  -webkit-transform: translateZ(0);
+  cursor: grab;
+}
+
+.dangling-letter:active {
+  cursor: grabbing;
+}
+
+.dangling-string-svg {
+  will-change: auto;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .dangling-letter {
+    animation: none !important;
+  }
+}
