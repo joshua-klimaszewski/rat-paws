@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion'
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { useEffect } from 'react'
 import './DanglingLetter.css'
 
@@ -11,98 +11,129 @@ function DanglingLetter({
   letterPositionsRef,
   onPositionUpdate
 }) {
-  // Pendulum angle in radians (0 = straight down, positive = clockwise)
-  const angle = useMotionValue(0)
+  // Direct position motion values (not angle-based)
+  const targetX = useMotionValue(anchorX)
+  const targetY = useMotionValue(anchorY + stringLength)
 
-  // Spring physics configuration
-  const springAngle = useSpring(angle, {
-    stiffness: 80,    // String tension (reduced from 100)
-    damping: 20,      // Air resistance (increased from 15)
-    mass: 1.5,        // Letter weight (increased from 1.2)
-    restDelta: 0.001,
-    restSpeed: 0.001
+  // Yo-yo style spring physics - very bouncy and elastic
+  const springConfig = {
+    stiffness: 40,     // Lower = more bouncy (reduced from 60)
+    damping: 6,        // Lower = more oscillation (reduced from 8)
+    mass: 2.5,         // Heavier = more momentum (increased from 2)
+  }
+
+  const x = useSpring(targetX, springConfig)
+  const y = useSpring(targetY, springConfig)
+
+  // Two control points for more dramatic S-curve (cubic bezier)
+  const control1X = useTransform([x, targetX], ([currentX, targetXVal]) => {
+    const oneThirdX = anchorX + (currentX - anchorX) * 0.33
+    const velocityOffset = (currentX - targetXVal) * 1.2 // Much more dramatic
+    return oneThirdX + velocityOffset
   })
 
-  // Convert angle to x,y coordinates (circular arc around anchor)
-  const x = useTransform(
-    springAngle,
-    (a) => anchorX + Math.sin(a) * stringLength
-  )
-  const y = useTransform(
-    springAngle,
-    (a) => anchorY + Math.cos(a) * stringLength
-  )
+  const control1Y = useTransform([y, targetY], ([currentY, targetYVal]) => {
+    const oneThirdY = anchorY + (currentY - anchorY) * 0.33
+    const velocityOffset = Math.abs(currentY - targetYVal) * 0.8
+    return oneThirdY + velocityOffset + 40 // More droop
+  })
 
-  // Random drop animation on mount
+  const control2X = useTransform([x, targetX], ([currentX, targetXVal]) => {
+    const twoThirdX = anchorX + (currentX - anchorX) * 0.67
+    const velocityOffset = (currentX - targetXVal) * -0.8 // Opposite direction for S-curve
+    return twoThirdX + velocityOffset
+  })
+
+  const control2Y = useTransform([y, targetY], ([currentY, targetYVal]) => {
+    const twoThirdY = anchorY + (currentY - anchorY) * 0.67
+    const velocityOffset = Math.abs(currentY - targetYVal) * 0.5
+
+    // Add slack when letter is moving up (string bunches up)
+    const verticalMotion = currentY - targetYVal
+    const slackAmount = verticalMotion < 0 ? Math.abs(verticalMotion) * 2 : 0
+
+    return twoThirdY + velocityOffset + slackAmount + 30
+  })
+
+  // Random drop animation on mount - yo-yo style bounce
   useEffect(() => {
     const randomDelay = Math.random() * 1000 // 0-1000ms random delay
-    const randomSwing = (Math.random() - 0.5) * 0.5 // ±0.25 radians (±14°)
+    const randomSwingX = (Math.random() - 0.5) * 150 // More horizontal swing
+    const randomBounceY = Math.random() * 80 // Bigger initial bounce
 
     setTimeout(() => {
-      angle.set(randomSwing)
+      targetX.set(anchorX + randomSwingX)
+      targetY.set(anchorY + stringLength - randomBounceY)
     }, randomDelay)
   }, [])
 
-  // Collision detection
+  // Physics loop - collision detection + string constraint
   useEffect(() => {
-    const checkCollisions = () => {
+    const physicsLoop = () => {
       const currentX = x.get()
       const currentY = y.get()
-      const letterRadius = 35 // Reduced detection radius (was 60)
+      const letterRadius = 35
 
-      // Read positions from ref to avoid re-renders
+      // Constrain to string length (yo-yo can't extend beyond max length)
+      const dx = currentX - anchorX
+      const dy = currentY - anchorY
+      const distanceFromAnchor = Math.hypot(dx, dy)
+
+      if (distanceFromAnchor > stringLength) {
+        // Pull back to max string length
+        const angle = Math.atan2(dx, dy)
+        targetX.set(anchorX + Math.sin(angle) * stringLength)
+        targetY.set(anchorY + Math.cos(angle) * stringLength)
+      }
+
+      // Keep letters below nav bar
+      if (currentY < anchorY + 50) {
+        targetY.set(anchorY + 50)
+      }
+
+      // Collision detection
       const allLetters = letterPositionsRef?.current || []
 
       allLetters.forEach((otherLetter, i) => {
-        if (i === index || !otherLetter) return // Skip self and undefined
+        if (i === index || !otherLetter) return
 
-        // Quick distance check (avoid expensive Math.hypot if far apart)
         const dx = currentX - otherLetter.x
         const dy = currentY - otherLetter.y
 
-        // Early exit if obviously far apart (150px threshold, reduced from 200)
         if (Math.abs(dx) > 150 || Math.abs(dy) > 150) return
 
         const distance = Math.hypot(dx, dy)
         const minDistance = letterRadius * 2
 
         if (distance < minDistance && distance > 0) {
-          // Collision detected! Apply very gentle push
-          const collisionAngle = Math.atan2(dy, dx)
+          // Push away to create string motion
+          const pushAngle = Math.atan2(dy, dx)
           const overlap = minDistance - distance
+          const pushForce = overlap * 1.5 // Stronger push creates more string bend
 
-          // Very gentle push force (reduced from 0.02 to 0.003)
-          const pushForce = overlap * 0.003
-          const currentAngle = angle.get()
-          const newAngle = currentAngle + pushForce * Math.sin(collisionAngle)
+          const newX = currentX + Math.cos(pushAngle) * pushForce
+          const newY = currentY + Math.sin(pushAngle) * pushForce
 
-          // Clamp angle to keep letters below nav bar (max ±60 degrees)
-          const clampedAngle = Math.max(-Math.PI / 3, Math.min(Math.PI / 3, newAngle))
-          angle.set(clampedAngle)
+          targetX.set(newX)
+          targetY.set(newY)
         }
       })
 
-      // Clamp angle to prevent going above nav bar
-      const currentAngle = angle.get()
-      if (currentAngle < -Math.PI / 3 || currentAngle > Math.PI / 3) {
-        angle.set(Math.max(-Math.PI / 3, Math.min(Math.PI / 3, currentAngle)))
-      }
-
-      // Report position for other letters to check
+      // Report position
       if (onPositionUpdate) {
         onPositionUpdate(index, { x: currentX, y: currentY })
       }
 
-      requestAnimationFrame(checkCollisions)
+      requestAnimationFrame(physicsLoop)
     }
 
-    const animationId = requestAnimationFrame(checkCollisions)
+    const animationId = requestAnimationFrame(physicsLoop)
     return () => cancelAnimationFrame(animationId)
-  }, [index, x, y, angle, letterPositionsRef, onPositionUpdate])
+  }, [index, x, y, targetX, targetY, anchorX, anchorY, stringLength, letterPositionsRef, onPositionUpdate])
 
   return (
     <>
-      {/* SVG String */}
+      {/* SVG String - Curved like a yo-yo string with dramatic bending */}
       <svg
         className="dangling-string-svg"
         style={{
@@ -115,13 +146,19 @@ function DanglingLetter({
           zIndex: 999
         }}
       >
-        <motion.line
-          x1={anchorX}
-          y1={anchorY}
-          x2={x}
-          y2={y}
+        <motion.path
+          d={useTransform(
+            [x, y, control1X, control1Y, control2X, control2Y],
+            (latest) => {
+              const [endX, endY, ctrl1X, ctrl1Y, ctrl2X, ctrl2Y] = latest
+              // Cubic bezier curve: M (start) C (control1) (control2) (end)
+              // This allows for S-curves and loops
+              return `M ${anchorX} ${anchorY} C ${ctrl1X} ${ctrl1Y}, ${ctrl2X} ${ctrl2Y}, ${endX} ${endY}`
+            }
+          )}
           stroke="var(--color-black)"
           strokeWidth="2"
+          fill="none"
           strokeLinecap="round"
         />
       </svg>

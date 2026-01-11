@@ -13,6 +13,10 @@
   will-change: auto;
 }
 
+.dangling-string-svg path {
+  shape-rendering: geometricPrecision; /* Smooth curves */
+}
+
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   .dangling-letter {
