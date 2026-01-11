@@ -1,0 +1,127 @@
+.shows {
+  background-color: var(--color-white);
+  color: var(--color-black);
+}
+
+.shows-title {
+  font-size: var(--font-size-h2);
+  margin-bottom: var(--spacing-large);
+  text-transform: uppercase;
+}
+
+.shows-table-container {
+  overflow-x: auto;
+  margin-bottom: var(--spacing-large);
+}
+
+.shows-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-body);
+}
+
+.shows-table thead {
+  border-bottom: 3px solid var(--color-black);
+}
+
+.shows-table th {
+  text-align: left;
+  padding: var(--spacing-small);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-small);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.shows-table tbody tr {
+  border-bottom: 2px solid var(--color-black);
+  transition: all var(--duration-normal) ease;
+}
+
+.shows-table td {
+  padding: var(--spacing-medium) var(--spacing-small);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+}
+
+.show-date {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+}
+
+.show-venue {
+  font-size: 20px;
+  font-weight: var(--font-weight-bold);
+}
+
+.show-location {
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+.tickets-button {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: var(--color-black);
+  color: var(--color-white);
+  font-size: 12px;
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border: 2px solid var(--color-black);
+  transition: all var(--duration-normal) ease;
+}
+
+.tickets-button:hover {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-white);
+  transform: scale(1.05);
+}
+
+.shows-table tbody tr:hover .tickets-button {
+  background-color: var(--color-white);
+  color: var(--color-black);
+  border-color: var(--color-white);
+}
+
+.no-shows-message {
+  text-align: center;
+  padding: var(--spacing-large) 0;
+  border-top: 3px solid var(--color-black);
+}
+
+.no-shows-message p {
+  font-size: 24px;
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .shows-table-container {
+    display: none;
+  }
+
+  .shows-table {
+    display: none;
+  }
+
+  /* Show mobile card view instead */
+  .shows-table-container::after {
+    content: '';
+    display: block;
+  }
+
+  .no-shows-message p {
+    font-size: 18px;
+  }
+}
+
+/* Mobile Card Layout */
+@media (max-width: 768px) {
+  .shows .container::before {
+    content: attr(data-shows);
+  }
+}

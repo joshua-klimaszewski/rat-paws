@@ -1,0 +1,51 @@
+:root {
+  /* Colors - Brutalist Black/White */
+  --color-black: #000000;
+  --color-white: #FFFFFF;
+  --color-accent: #AD34E5; /* Purple accent inspired by mirelleborra.com */
+
+  /* Typography */
+  --font-primary: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+
+  /* Font Sizes - Desktop */
+  --font-size-h1: 120px;
+  --font-size-h2: 72px;
+  --font-size-h3: 48px;
+  --font-size-body: 18px;
+  --font-size-small: 14px;
+
+  /* Font Weights */
+  --font-weight-bold: 700;
+  --font-weight-normal: 400;
+
+  /* Line Heights */
+  --line-height-tight: 1.1;
+  --line-height-normal: 1.5;
+
+  /* Spacing */
+  --spacing-section: 120px;
+  --spacing-large: 60px;
+  --spacing-medium: 30px;
+  --spacing-small: 20px;
+
+  /* Grid Gaps */
+  --gap-large: 30px;
+  --gap-medium: 20px;
+
+  /* Animation */
+  --easing-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-normal: 0.3s;
+  --duration-slow: 0.6s;
+}
+
+/* Mobile Overrides */
+@media (max-width: 768px) {
+  :root {
+    --font-size-h1: 48px;
+    --font-size-h2: 36px;
+    --font-size-h3: 24px;
+    --font-size-body: 16px;
+    --spacing-section: 60px;
+    --spacing-large: 40px;
+  }
+}

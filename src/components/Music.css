@@ -1,0 +1,117 @@
+.music {
+  background-color: var(--color-black);
+  color: var(--color-white);
+}
+
+.music-title {
+  font-size: var(--font-size-h2);
+  margin-bottom: var(--spacing-large);
+  text-transform: uppercase;
+}
+
+.releases-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--gap-large);
+  margin-bottom: var(--spacing-section);
+}
+
+.release-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-small);
+  transition: transform var(--duration-normal) ease;
+}
+
+.release-artwork {
+  aspect-ratio: 1;
+  background-color: var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid var(--color-white);
+  position: relative;
+  overflow: hidden;
+}
+
+.release-card:hover .release-artwork {
+  background-color: var(--color-white);
+}
+
+.release-card:hover .release-type {
+  color: var(--color-black);
+}
+
+.release-type {
+  font-size: 64px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-black);
+  text-transform: uppercase;
+  transition: color var(--duration-normal) ease;
+}
+
+.release-title {
+  font-size: 36px;
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  margin: 0;
+  line-height: var(--line-height-tight);
+}
+
+.release-year {
+  font-size: var(--font-size-small);
+  font-family: 'Courier New', monospace;
+  opacity: 0.7;
+}
+
+.platforms {
+  border-top: 3px solid var(--color-white);
+  padding-top: var(--spacing-large);
+}
+
+.platforms-title {
+  font-size: var(--font-size-h3);
+  margin-bottom: var(--spacing-medium);
+  text-transform: uppercase;
+}
+
+.platforms-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-small);
+}
+
+.platform-link {
+  font-size: 32px;
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  padding: var(--spacing-small) 0;
+  border-bottom: 2px solid transparent;
+  transition: all var(--duration-normal) ease;
+  display: inline-block;
+  width: fit-content;
+}
+
+.platform-link:hover {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .releases-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .release-type {
+    font-size: 48px;
+  }
+
+  .release-title {
+    font-size: 24px;
+  }
+
+  .platform-link {
+    font-size: 24px;
+  }
+}

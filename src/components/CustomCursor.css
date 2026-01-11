@@ -1,0 +1,15 @@
+.custom-cursor {
+  position: fixed;
+  width: 24px;
+  height: 24px;
+  background-color: var(--color-accent);
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .custom-cursor {
+    display: none;
+  }
+}
