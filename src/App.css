@@ -1,41 +1,6 @@
 /* App-level Styles */
 
-main {
-  position: relative;
-}
-
-/* Footer */
-.footer {
-  background-color: var(--color-black);
-  color: var(--color-white);
-  padding: var(--spacing-large) 0;
-  text-align: center;
-}
-
-.footer .container {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-small);
-}
-
-.footer p {
-  font-size: var(--font-size-small);
-}
-
-.footer-links a {
-  font-weight: var(--font-weight-bold);
-  font-size: var(--font-size-small);
-  text-transform: uppercase;
-}
-
-.footer-links a:hover {
-  color: var(--color-accent);
-}
-
-@media (min-width: 768px) {
-  .footer .container {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
+.main-content {
+  padding-top: 60px; /* Account for fixed navigation */
+  min-height: 100vh;
 }

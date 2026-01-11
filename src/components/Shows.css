@@ -1,127 +1,97 @@
 .shows {
+  min-height: calc(100vh - 60px);
   background-color: var(--color-white);
   color: var(--color-black);
+  padding: 80px 40px;
 }
 
-.shows-title {
-  font-size: var(--font-size-h2);
-  margin-bottom: var(--spacing-large);
-  text-transform: uppercase;
+.shows .container {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.shows-table-container {
-  overflow-x: auto;
-  margin-bottom: var(--spacing-large);
+.shows-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
-.shows-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: var(--font-size-body);
-}
-
-.shows-table thead {
-  border-bottom: 3px solid var(--color-black);
-}
-
-.shows-table th {
-  text-align: left;
-  padding: var(--spacing-small);
-  font-weight: var(--font-weight-bold);
-  font-size: var(--font-size-small);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-.shows-table tbody tr {
-  border-bottom: 2px solid var(--color-black);
+.show-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 0;
+  border-bottom: 1px solid var(--color-black);
   transition: all var(--duration-normal) ease;
 }
 
-.shows-table td {
-  padding: var(--spacing-medium) var(--spacing-small);
-  font-weight: var(--font-weight-bold);
-  text-transform: uppercase;
+.show-item:hover {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+}
+
+.show-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .show-date {
+  font-size: 13px;
   font-family: 'Courier New', monospace;
-  font-size: 14px;
+  opacity: 0.5;
 }
 
 .show-venue {
   font-size: 20px;
   font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .show-location {
   font-size: 14px;
-  opacity: 0.7;
-}
-
-.tickets-button {
-  display: inline-block;
-  padding: 12px 24px;
-  background-color: var(--color-black);
-  color: var(--color-white);
-  font-size: 12px;
-  font-weight: var(--font-weight-bold);
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  border: 2px solid var(--color-black);
-  transition: all var(--duration-normal) ease;
+  opacity: 0.6;
 }
 
-.tickets-button:hover {
-  background-color: var(--color-accent);
-  border-color: var(--color-accent);
-  color: var(--color-white);
-  transform: scale(1.05);
-}
-
-.shows-table tbody tr:hover .tickets-button {
-  background-color: var(--color-white);
-  color: var(--color-black);
-  border-color: var(--color-white);
-}
-
-.no-shows-message {
-  text-align: center;
-  padding: var(--spacing-large) 0;
-  border-top: 3px solid var(--color-black);
-}
-
-.no-shows-message p {
-  font-size: 24px;
-  font-weight: var(--font-weight-bold);
+.show-tickets {
+  font-size: 14px;
+  font-weight: var(--font-weight-normal);
   text-transform: uppercase;
-  opacity: 0.5;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  color: var(--color-black);
+  transition: color var(--duration-normal) ease;
+}
+
+.show-item:hover .show-tickets {
+  color: var(--color-accent);
 }
 
 /* Mobile */
 @media (max-width: 768px) {
-  .shows-table-container {
-    display: none;
+  .shows {
+    padding: 60px 20px;
   }
 
-  .shows-table {
-    display: none;
+  .show-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 20px 0;
   }
 
-  /* Show mobile card view instead */
-  .shows-table-container::after {
-    content: '';
-    display: block;
+  .show-venue {
+    font-size: 16px;
   }
 
-  .no-shows-message p {
-    font-size: 18px;
+  .show-location {
+    font-size: 12px;
   }
-}
 
-/* Mobile Card Layout */
-@media (max-width: 768px) {
-  .shows .container::before {
-    content: attr(data-shows);
+  .show-tickets {
+    font-size: 12px;
   }
 }

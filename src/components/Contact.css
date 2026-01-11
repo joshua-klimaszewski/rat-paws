@@ -1,247 +1,73 @@
 .contact {
+  min-height: calc(100vh - 60px);
   background-color: var(--color-white);
   color: var(--color-black);
+  padding: 80px 40px;
 }
 
-.contact-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--spacing-section);
-}
-
-.section-title {
-  font-size: var(--font-size-h2);
-  margin-bottom: var(--spacing-large);
-  text-transform: uppercase;
-}
-
-.subsection-title {
-  font-size: var(--font-size-h3);
-  margin-bottom: var(--spacing-medium);
-  text-transform: uppercase;
-}
-
-/* Contact Section */
-.contact-section {
-  border-right: 3px solid var(--color-black);
-  padding-right: var(--spacing-large);
+.contact .container {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .contact-email {
-  margin-bottom: var(--spacing-large);
+  margin-bottom: 60px;
 }
 
 .email-link {
-  font-size: 32px;
-  font-weight: var(--font-weight-bold);
-  text-transform: uppercase;
+  font-size: 24px;
+  font-weight: var(--font-weight-normal);
+  text-transform: lowercase;
+  text-decoration: none;
+  color: var(--color-black);
+  transition: color var(--duration-normal) ease;
   display: inline-block;
-  padding: var(--spacing-small) 0;
-  border-bottom: 3px solid transparent;
-  transition: all var(--duration-normal) ease;
 }
 
 .email-link:hover {
   color: var(--color-accent);
-  border-bottom-color: var(--color-accent);
 }
 
 .social-links {
-  margin-bottom: var(--spacing-large);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
 }
 
 .social-link {
-  display: block;
-  font-size: 24px;
-  font-weight: var(--font-weight-bold);
+  font-size: 16px;
+  font-weight: var(--font-weight-normal);
   text-transform: uppercase;
-  padding: var(--spacing-small) 0;
-  transition: all var(--duration-normal) ease;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  color: var(--color-black);
+  transition: color var(--duration-normal) ease;
 }
 
 .social-link:hover {
   color: var(--color-accent);
 }
 
-.mailing-list {
-  margin-top: var(--spacing-large);
-}
-
-.mailing-note {
-  font-size: var(--font-size-small);
-  opacity: 0.6;
-  margin-bottom: var(--spacing-small);
-  text-transform: uppercase;
-}
-
-.mailing-form {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-small);
-}
-
-.email-input {
-  padding: 16px;
-  font-size: var(--font-size-body);
-  font-family: var(--font-primary);
-  font-weight: var(--font-weight-bold);
-  text-transform: uppercase;
-  border: 3px solid var(--color-black);
-  background-color: var(--color-white);
-  color: var(--color-black);
-  transition: all var(--duration-normal) ease;
-}
-
-.email-input:focus {
-  outline: none;
-  border-color: var(--color-accent);
-}
-
-.email-input::placeholder {
-  color: var(--color-black);
-  opacity: 0.5;
-}
-
-.submit-button {
-  padding: 16px;
-  font-size: var(--font-size-body);
-  font-weight: var(--font-weight-bold);
-  text-transform: uppercase;
-  background-color: var(--color-black);
-  color: var(--color-white);
-  border: 3px solid var(--color-black);
-  transition: all var(--duration-normal) ease;
-}
-
-.submit-button:hover {
-  background-color: var(--color-accent);
-  border-color: var(--color-accent);
-  transform: scale(1.02);
-}
-
-/* Merch Section */
-.merch-section {
-  padding-left: var(--spacing-large);
-}
-
-.merch-cta {
-  margin-bottom: var(--spacing-large);
-}
-
-.merch-headline {
-  font-size: 64px;
-  font-weight: var(--font-weight-bold);
-  text-transform: uppercase;
-  line-height: var(--line-height-tight);
-  margin-bottom: var(--spacing-medium);
-}
-
-.merch-stores {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-small);
-}
-
-.store-link {
-  font-size: 24px;
-  font-weight: var(--font-weight-bold);
-  text-transform: uppercase;
-  display: inline-block;
-  padding: var(--spacing-small) 0;
-  transition: all var(--duration-normal) ease;
-}
-
-.store-link:hover {
-  color: var(--color-accent);
-  transform: translateX(10px);
-}
-
-.merch-items {
-  margin-top: var(--spacing-large);
-}
-
-.merch-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: var(--gap-medium);
-}
-
-.merch-item {
-  transition: transform var(--duration-normal) ease;
-}
-
-.merch-placeholder {
-  aspect-ratio: 1;
-  background-color: var(--color-black);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 3px solid var(--color-black);
-}
-
-.merch-item:hover .merch-placeholder {
-  background-color: var(--color-accent);
-  border-color: var(--color-accent);
-}
-
-.merch-price {
-  font-size: 36px;
-  font-weight: var(--font-weight-bold);
-  color: var(--color-white);
-}
-
-.merch-name {
-  font-size: 18px;
-  font-weight: var(--font-weight-bold);
-  text-transform: uppercase;
-  margin-top: var(--spacing-small);
-}
-
 /* Mobile */
-@media (max-width: 1024px) {
-  .contact-grid {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-large);
+@media (max-width: 768px) {
+  .contact {
+    padding: 60px 20px;
   }
 
-  .contact-section {
-    border-right: none;
-    border-bottom: 3px solid var(--color-black);
-    padding-right: 0;
-    padding-bottom: var(--spacing-large);
-  }
-
-  .merch-section {
-    padding-left: 0;
-  }
-
-  .merch-headline {
-    font-size: 48px;
+  .contact-email {
+    margin-bottom: 40px;
   }
 
   .email-link {
-    font-size: 24px;
+    font-size: 18px;
+  }
+
+  .social-links {
+    flex-direction: column;
+    gap: 15px;
   }
 
   .social-link {
-    font-size: 20px;
-  }
-
-  .store-link {
-    font-size: 20px;
-  }
-}
-
-@media (max-width: 768px) {
-  .merch-headline {
-    font-size: 36px;
-  }
-
-  .email-link {
-    font-size: 20px;
-  }
-
-  .merch-grid {
-    grid-template-columns: repeat(2, 1fr);
+    font-size: 14px;
   }
 }

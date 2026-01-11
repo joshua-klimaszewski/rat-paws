@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import CustomCursor from './components/CustomCursor'
 import Navigation from './components/Navigation'
 import Hero from './components/Hero'
@@ -11,26 +11,20 @@ import './App.css'
 
 function App() {
   return (
-    <>
+    <Router basename="/rat-paws">
       <CustomCursor />
       <Navigation />
-      <main>
-        <Hero />
-        <About />
-        <Music />
-        <Shows />
-        <Gallery />
-        <Contact />
+      <main className="main-content">
+        <Routes>
+          <Route path="/" element={<Hero />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/music" element={<Music />} />
+          <Route path="/shows" element={<Shows />} />
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
       </main>
-      <footer className="footer">
-        <div className="container">
-          <p>© 2026 RAT PAWS</p>
-          <div className="footer-links">
-            <a href="#hero">BACK TO TOP</a>
-          </div>
-        </div>
-      </footer>
-    </>
+    </Router>
   )
 }
 

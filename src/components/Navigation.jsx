@@ -1,43 +1,18 @@
-import { useState, useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import './Navigation.css'
 
 function Navigation() {
-  const [activeSection, setActiveSection] = useState('hero')
+  const location = useLocation()
 
   const navItems = [
-    { id: 'hero', label: 'HOME' },
-    { id: 'about', label: 'ABOUT' },
-    { id: 'music', label: 'MUSIC' },
-    { id: 'shows', label: 'SHOWS' },
-    { id: 'gallery', label: 'GALLERY' },
-    { id: 'contact', label: 'CONTACT' },
+    { path: '/', label: 'RAT PAWS' },
+    { path: '/about', label: 'ABOUT' },
+    { path: '/music', label: 'MUSIC' },
+    { path: '/shows', label: 'SHOWS' },
+    { path: '/gallery', label: 'GALLERY' },
+    { path: '/contact', label: 'CONTACT' },
   ]
-
-  const scrollToSection = (id) => {
-    const element = document.getElementById(id)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
-    }
-  }
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const sections = navItems.map((item) => document.getElementById(item.id))
-      const scrollPosition = window.scrollY + window.innerHeight / 2
-
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = sections[i]
-        if (section && section.offsetTop <= scrollPosition) {
-          setActiveSection(navItems[i].id)
-          break
-        }
-      }
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
 
   return (
     <motion.nav
@@ -48,14 +23,14 @@ function Navigation() {
     >
       <ul className="nav-list">
         {navItems.map((item) => (
-          <li key={item.id}>
-            <button
-              onClick={() => scrollToSection(item.id)}
-              className={`nav-link ${activeSection === item.id ? 'active' : ''}`}
+          <li key={item.path}>
+            <Link
+              to={item.path}
+              className={`nav-link ${location.pathname === item.path ? 'active' : ''}`}
               aria-label={`Navigate to ${item.label}`}
             >
               {item.label}
-            </button>
+            </Link>
           </li>
         ))}
       </ul>
