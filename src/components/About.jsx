@@ -25,14 +25,8 @@ function About() {
   }
 
   const bioFragments = [
-    'RAT PAWS IS AN',
-    'EXPERIMENTAL SOUND COLLECTIVE',
-    'PUSHING THE BOUNDARIES OF NOISE,',
-    'RHYTHM, AND RAW ENERGY.',
-    'FORMED IN THE DEPTHS',
-    'OF THE UNDERGROUND SCENE,',
-    'WE CREATE MUSIC THAT',
-    'REFUSES TO COMPROMISE.',
+    'RAT PAWS IS A',
+    'BAND FROM DETROIT',
   ]
 
   const members = [
