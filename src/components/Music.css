@@ -11,7 +11,6 @@
 }
 
 .releases-list {
-  margin-bottom: 80px;
   display: flex;
   flex-direction: column;
   gap: 0;
@@ -46,34 +45,10 @@
   opacity: 0.5;
 }
 
-.platforms-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
-}
-
-.platform-link {
-  font-size: 16px;
-  font-weight: var(--font-weight-normal);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  text-decoration: none;
-  color: var(--color-black);
-  transition: color var(--duration-normal) ease;
-}
-
-.platform-link:hover {
-  color: var(--color-accent);
-}
-
 /* Mobile */
 @media (max-width: 768px) {
   .music {
     padding: 60px 20px;
-  }
-
-  .releases-list {
-    margin-bottom: 60px;
   }
 
   .release-item {
@@ -88,14 +63,5 @@
 
   .release-year {
     font-size: 13px;
-  }
-
-  .platforms-list {
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .platform-link {
-    font-size: 14px;
   }
 }

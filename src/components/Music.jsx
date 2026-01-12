@@ -8,15 +8,6 @@ function Music() {
     { title: "LET'S COOL", year: '2019', url: 'https://ratpaws.bandcamp.com/album/lets-cool' },
   ]
 
-  const platforms = [
-    { name: 'INSTAGRAM', url: 'https://www.instagram.com/rat_paws__/?hl=en' },
-    { name: 'BOOKING', url: 'mailto:booking@ratpaws.com' },
-    { name: 'BANDCAMP', url: 'https://ratpaws.bandcamp.com/' },
-    { name: 'SPOTIFY', url: 'https://open.spotify.com/artist/0No4nBEVAkLGKj9BgrAUXJ' },
-    // { name: 'APPLE MUSIC', url: 'https://music.apple.com/au/artist/rat-paws/1640040818' },
-    // { name: 'SOUNDCLOUD', url: 'https://soundcloud.com/ratpawsboys' },
-  ]
-
   return (
     <section className="music">
       <div className="container">
@@ -34,21 +25,6 @@ function Music() {
             >
               <span className="release-title">{release.title}</span>
               <span className="release-year">{release.year}</span>
-            </motion.a>
-          ))}
-        </div>
-
-        <div className="platforms-list">
-          {platforms.map((platform, i) => (
-            <motion.a
-              key={platform.name}
-              href={platform.url}
-              className="platform-link"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 + i * 0.08, duration: 0.4 }}
-            >
-              {platform.name}
             </motion.a>
           ))}
         </div>

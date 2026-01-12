@@ -2,5 +2,6 @@
 
 .main-content {
   padding-top: 60px; /* Account for fixed navigation */
+  padding-bottom: 150px; /* Account for sticky footer */
   min-height: 100vh;
 }

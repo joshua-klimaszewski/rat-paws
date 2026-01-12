@@ -6,6 +6,7 @@ import About from './components/About'
 import Music from './components/Music'
 import Shows from './components/Shows'
 import Gallery from './components/Gallery'
+import Footer from './components/Footer'
 import './App.css'
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path="/gallery" element={<Gallery />} />
         </Routes>
       </main>
+      <Footer />
     </Router>
   )
 }
