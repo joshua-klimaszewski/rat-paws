@@ -24,6 +24,8 @@
   padding: 20px 0;
   border-bottom: 1px solid var(--color-black);
   transition: color var(--duration-normal) ease;
+  text-decoration: none;
+  color: var(--color-black);
 }
 
 .release-item:hover {
@@ -42,11 +44,6 @@
   font-size: 16px;
   font-family: 'Courier New', monospace;
   opacity: 0.5;
-}
-
-.platforms {
-  border-top: 1px solid var(--color-black);
-  padding-top: 40px;
 }
 
 .platforms-list {

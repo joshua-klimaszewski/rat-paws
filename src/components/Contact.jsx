@@ -3,10 +3,7 @@ import './Contact.css'
 
 function Contact() {
   const socialLinks = [
-    { name: 'INSTAGRAM', url: 'https://instagram.com' },
-    { name: 'TIKTOK', url: 'https://tiktok.com' },
-    { name: 'YOUTUBE', url: 'https://youtube.com' },
-    { name: 'TWITTER', url: 'https://twitter.com' },
+    { name: 'INSTAGRAM', url: 'https://www.instagram.com/rat_paws__/?hl=en' },
   ]
 
   return (

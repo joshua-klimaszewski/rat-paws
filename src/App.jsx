@@ -6,7 +6,6 @@ import About from './components/About'
 import Music from './components/Music'
 import Shows from './components/Shows'
 import Gallery from './components/Gallery'
-import Contact from './components/Contact'
 import './App.css'
 
 function App() {
@@ -21,7 +20,6 @@ function App() {
           <Route path="/music" element={<Music />} />
           <Route path="/shows" element={<Shows />} />
           <Route path="/gallery" element={<Gallery />} />
-          <Route path="/contact" element={<Contact />} />
         </Routes>
       </main>
     </Router>

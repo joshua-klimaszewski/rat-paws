@@ -30,6 +30,15 @@
   border-bottom-color: var(--color-accent);
 }
 
+.show-item.past-show {
+  opacity: 0.4;
+}
+
+.show-item.past-show .show-venue,
+.show-item.past-show .show-location {
+  text-decoration: line-through;
+}
+
 .show-info {
   display: flex;
   flex-direction: column;
@@ -54,6 +63,14 @@
   text-transform: uppercase;
   letter-spacing: 0.1em;
   opacity: 0.6;
+}
+
+.show-with {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.5;
+  margin-top: 3px;
 }
 
 .show-tickets {
@@ -89,6 +106,10 @@
 
   .show-location {
     font-size: 12px;
+  }
+
+  .show-with {
+    font-size: 11px;
   }
 
   .show-tickets {

@@ -7,11 +7,10 @@ function Navigation() {
 
   const navItems = [
     { path: '/', label: 'RAT PAWS' },
-    { path: '/about', label: 'ABOUT' },
-    { path: '/music', label: 'MUSIC' },
+    // { path: '/about', label: 'ABOUT' }, // under construction
     { path: '/shows', label: 'SHOWS' },
-    { path: '/gallery', label: 'GALLERY' },
-    { path: '/contact', label: 'CONTACT' },
+    { path: '/music', label: 'MUSIC' },
+    // { path: '/gallery', label: 'GALLERY' }, // under construction
   ]
 
   return (
