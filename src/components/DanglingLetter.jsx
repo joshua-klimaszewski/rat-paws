@@ -131,6 +131,23 @@ function DanglingLetter({
     return () => cancelAnimationFrame(animationId)
   }, [index, x, y, targetX, targetY, anchorX, anchorY, stringLength, letterPositionsRef, onPositionUpdate])
 
+  // Click/tap handler - makes letter jump up with random jitter
+  const handleLetterClick = (event) => {
+    event.preventDefault()
+
+    // Get current positions
+    const currentY = y.get()
+    const currentX = x.get()
+
+    // Upward jump (90px)
+    const jumpHeight = 90
+    targetY.set(currentY - jumpHeight)
+
+    // Random horizontal jitter (±30px)
+    const jitterX = (Math.random() - 0.5) * 60
+    targetX.set(currentX + jitterX)
+  }
+
   return (
     <>
       {/* SVG String - Curved like a yo-yo string with dramatic bending */}
@@ -186,6 +203,8 @@ function DanglingLetter({
           color: 'var(--color-accent)',
           transition: { duration: 0.2 }
         }}
+        whileTap={{ scale: 0.95 }}
+        onClick={handleLetterClick}
       >
         {letter}
       </motion.div>
