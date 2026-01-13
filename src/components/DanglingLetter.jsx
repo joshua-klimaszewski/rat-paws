@@ -9,7 +9,9 @@ function DanglingLetter({
   stringLength,
   index,
   letterPositionsRef,
-  onPositionUpdate
+  onPositionUpdate,
+  windowWidth,
+  windowHeight
 }) {
   // Direct position motion values (not angle-based)
   const targetX = useMotionValue(anchorX)
@@ -91,6 +93,22 @@ function DanglingLetter({
         targetY.set(anchorY + 50)
       }
 
+      // Viewport boundary constraints (prevent letters from flying off-screen)
+      // Left edge constraint
+      if (currentX < letterRadius) {
+        targetX.set(letterRadius)
+      }
+
+      // Right edge constraint
+      if (currentX > windowWidth - letterRadius) {
+        targetX.set(windowWidth - letterRadius)
+      }
+
+      // Bottom edge constraint (leave 50px margin for footer)
+      if (currentY > windowHeight - 50) {
+        targetY.set(windowHeight - 50)
+      }
+
       // Collision detection
       const allLetters = letterPositionsRef?.current || []
 
@@ -129,7 +147,7 @@ function DanglingLetter({
 
     const animationId = requestAnimationFrame(physicsLoop)
     return () => cancelAnimationFrame(animationId)
-  }, [index, x, y, targetX, targetY, anchorX, anchorY, stringLength, letterPositionsRef, onPositionUpdate])
+  }, [index, x, y, targetX, targetY, anchorX, anchorY, stringLength, letterPositionsRef, onPositionUpdate, windowWidth, windowHeight])
 
   // Click/tap handler - makes letter jump up with random jitter
   const handleLetterClick = (event) => {

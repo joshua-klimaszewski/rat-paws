@@ -5,6 +5,7 @@ import './Hero.css'
 
 function Hero() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+  const [windowHeight, setWindowHeight] = useState(window.innerHeight)
   const letterPositionsRef = useRef([])
 
   const letters = ['R', 'A', 'T', 'P', 'A', 'W', 'S']
@@ -16,6 +17,7 @@ function Hero() {
       clearTimeout(resizeTimer)
       resizeTimer = setTimeout(() => {
         setWindowWidth(window.innerWidth)
+        setWindowHeight(window.innerHeight)
       }, 150)
     }
 
@@ -67,6 +69,8 @@ function Hero() {
             index={index}
             letterPositionsRef={letterPositionsRef}
             onPositionUpdate={handlePositionUpdate}
+            windowWidth={windowWidth}
+            windowHeight={windowHeight}
           />
         ))}
       </div>
