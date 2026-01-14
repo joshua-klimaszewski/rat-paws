@@ -4,7 +4,7 @@ import './Footer.css'
 function Footer() {
   const platforms = [
     { name: 'INSTAGRAM', url: 'https://www.instagram.com/rat_paws__/?hl=en' },
-    { name: 'BOOKING', url: 'mailto:booking@ratpaws.com' },
+    { name: 'BOOKING', url: 'mailto:ratpawsbooking@gmail.com' },
     { name: 'BANDCAMP', url: 'https://ratpaws.bandcamp.com/' },
     { name: 'SPOTIFY', url: 'https://open.spotify.com/artist/0No4nBEVAkLGKj9BgrAUXJ' },
     // { name: 'APPLE MUSIC', url: 'https://music.apple.com/au/artist/rat-paws/1640040818' },
