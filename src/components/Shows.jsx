@@ -38,6 +38,12 @@ function Shows() {
       location: 'DETROIT, MI',
       with: "MODERN NATURE, BRIGID DAWSON & THE MOTHERS NETWORK"
     },
+    {
+      date: '2026-02-06',
+      venue: "ZIGGY'S",
+      location: 'YPSILANTI, MI',
+      with: "JIM CHEREWICK, TURN TO CRIME"
+    },
   ]
 
   const isShowPast = (showDate) => {
