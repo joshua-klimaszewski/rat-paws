@@ -65,6 +65,11 @@ a:focus-visible {
   outline-offset: 4px;
 }
 
+a:active {
+  transform: scale(0.98);
+  transition: transform 0.1s ease;
+}
+
 /* Buttons */
 button {
   font-family: var(--font-primary);
@@ -84,6 +89,11 @@ button {
 button:focus-visible {
   outline: 3px solid var(--color-accent);
   outline-offset: 4px;
+}
+
+button:active {
+  transform: scale(0.98);
+  transition: transform 0.1s ease;
 }
 
 /* Selection */
