@@ -1,5 +1,5 @@
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import './DanglingLetter.css'
 
 function DanglingLetter({
@@ -11,17 +11,22 @@ function DanglingLetter({
   letterPositionsRef,
   onPositionUpdate,
   windowWidth,
-  windowHeight
+  windowHeight,
+  isMobile
 }) {
   // Direct position motion values (not angle-based)
   const targetX = useMotionValue(anchorX)
   const targetY = useMotionValue(anchorY + stringLength)
 
-  // Yo-yo style spring physics - very bouncy and elastic
+  // Velocity tracking for collision physics (computed from position delta)
+  const velocityRef = useRef({ x: 0, y: 0 })
+  const prevPosRef = useRef({ x: anchorX, y: anchorY + stringLength })
+
+  // Softer spring config - bouncy and elastic like original
   const springConfig = {
-    stiffness: 40,     // Lower = more bouncy (reduced from 60)
-    damping: 6,        // Lower = more oscillation (reduced from 8)
-    mass: 2.5,         // Heavier = more momentum (increased from 2)
+    stiffness: isMobile ? 50 : 40,  // Low = bouncy
+    damping: isMobile ? 8 : 6,      // Low = more oscillation
+    mass: isMobile ? 2.0 : 2.5,     // Heavy = more momentum
   }
 
   const x = useSpring(targetX, springConfig)
@@ -57,89 +62,141 @@ function DanglingLetter({
     return twoThirdY + velocityOffset + slackAmount + 30
   })
 
-  // Random drop animation on mount - yo-yo style bounce
+  // Random drop animation on mount - gentle bounce within bounds
   useEffect(() => {
-    const randomDelay = Math.random() * 1000 // 0-1000ms random delay
-    const randomSwingX = (Math.random() - 0.5) * 150 // More horizontal swing
-    const randomBounceY = Math.random() * 80 // Bigger initial bounce
+    const randomDelay = Math.random() * 800
+    const maxSwingX = isMobile ? 20 : 50 // Swing within safe zone
+    const maxBounceY = isMobile ? 40 : 80
+    const randomSwingX = (Math.random() - 0.5) * (maxSwingX * 2)
+    const randomBounceY = Math.random() * maxBounceY
 
     setTimeout(() => {
-      targetX.set(anchorX + randomSwingX)
-      targetY.set(anchorY + stringLength - randomBounceY)
+      // Clamp initial position to safe bounds
+      const horizontalPadding = isMobile ? 15 : 30
+      const minX = horizontalPadding
+      const maxX = windowWidth - horizontalPadding
+
+      const newX = Math.max(minX, Math.min(maxX, anchorX + randomSwingX))
+      const newY = anchorY + stringLength - randomBounceY
+
+      targetX.set(newX)
+      targetY.set(newY)
     }, randomDelay)
   }, [])
 
-  // Physics loop - collision detection + string constraint
+  // Physics loop - boundary enforcement, collision detection, string constraint
+  // Uses target-position based physics (works WITH springs, not against them)
   useEffect(() => {
-    const physicsLoop = () => {
-      const currentX = x.get()
-      const currentY = y.get()
-      const letterRadius = 35
+    const letterRadius = isMobile ? 24 : 35
 
-      // Constrain to string length (yo-yo can't extend beyond max length)
-      const dx = currentX - anchorX
-      const dy = currentY - anchorY
+    // Tight boundaries - letters stay within hero container
+    // Horizontal: small padding from edge (letters can swing but not escape)
+    const horizontalPadding = isMobile ? 15 : 30
+    const minX = horizontalPadding
+    const maxX = windowWidth - horizontalPadding
+
+    // Vertical: letters can swing within their string length
+    const minY = anchorY + 15
+    const maxY = anchorY + stringLength + 30
+
+    const physicsLoop = () => {
+      let currentX = x.get()
+      let currentY = y.get()
+
+      // HARD BOUNDARY ENFORCEMENT - clamp actual position immediately if outside
+      // This prevents any visual escape from the container
+      const clampedX = Math.max(minX, Math.min(maxX, currentX))
+      const clampedY = Math.max(minY, Math.min(maxY, currentY))
+
+      if (currentX !== clampedX || currentY !== clampedY) {
+        // Position was outside bounds - force it back and set target inside
+        x.jump(clampedX)
+        y.jump(clampedY)
+        targetX.set(clampedX)
+        targetY.set(clampedY)
+        currentX = clampedX
+        currentY = clampedY
+      }
+
+      // Track velocity from position delta (for collision response)
+      velocityRef.current = {
+        x: currentX - prevPosRef.current.x,
+        y: currentY - prevPosRef.current.y
+      }
+      prevPosRef.current = { x: currentX, y: currentY }
+
+      let newTargetX = targetX.get()
+      let newTargetY = targetY.get()
+      let needsUpdate = false
+
+      // String length constraint - keep letter within string reach
+      const dx = newTargetX - anchorX
+      const dy = newTargetY - anchorY
       const distanceFromAnchor = Math.hypot(dx, dy)
 
       if (distanceFromAnchor > stringLength) {
-        // Pull back to max string length
         const angle = Math.atan2(dx, dy)
-        targetX.set(anchorX + Math.sin(angle) * stringLength)
-        targetY.set(anchorY + Math.cos(angle) * stringLength)
+        newTargetX = anchorX + Math.sin(angle) * stringLength
+        newTargetY = anchorY + Math.cos(angle) * stringLength
+        needsUpdate = true
       }
 
-      // Keep letters below nav bar
-      if (currentY < anchorY + 50) {
-        targetY.set(anchorY + 50)
-      }
+      // Always clamp target to bounds (prevents target from ever being outside)
+      newTargetX = Math.max(minX, Math.min(maxX, newTargetX))
+      newTargetY = Math.max(minY, Math.min(maxY, newTargetY))
 
-      // Viewport boundary constraints (prevent letters from flying off-screen)
-      // Left edge constraint
-      if (currentX < letterRadius) {
-        targetX.set(letterRadius)
-      }
-
-      // Right edge constraint
-      if (currentX > windowWidth - letterRadius) {
-        targetX.set(windowWidth - letterRadius)
-      }
-
-      // Bottom edge constraint (leave 50px margin for footer)
-      if (currentY > windowHeight - 50) {
-        targetY.set(windowHeight - 50)
-      }
-
-      // Collision detection
+      // Collision detection with other letters
       const allLetters = letterPositionsRef?.current || []
 
-      allLetters.forEach((otherLetter, i) => {
-        if (i === index || !otherLetter) return
+      allLetters.forEach((other, i) => {
+        if (i === index || !other) return
 
-        const dx = currentX - otherLetter.x
-        const dy = currentY - otherLetter.y
+        const colDx = currentX - other.x
+        const colDy = currentY - other.y
 
-        if (Math.abs(dx) > 150 || Math.abs(dy) > 150) return
+        // Early exit for distant letters
+        if (Math.abs(colDx) > 100 || Math.abs(colDy) > 100) return
 
-        const distance = Math.hypot(dx, dy)
+        const distance = Math.hypot(colDx, colDy)
         const minDistance = letterRadius * 2
 
         if (distance < minDistance && distance > 0) {
-          // Push away to create string motion
-          const pushAngle = Math.atan2(dy, dx)
+          // Push direction (normalized)
+          const nx = colDx / distance
+          const ny = colDy / distance
+
+          // Calculate push force based on overlap (smaller force to stay controlled)
           const overlap = minDistance - distance
-          const pushForce = overlap * 1.5 // Stronger push creates more string bend
+          const pushForce = overlap * 0.8
 
-          const newX = currentX + Math.cos(pushAngle) * pushForce
-          const newY = currentY + Math.sin(pushAngle) * pushForce
+          // Apply push to target position, then immediately clamp
+          let pushedX = currentX + nx * pushForce
+          let pushedY = currentY + ny * pushForce
 
-          targetX.set(newX)
-          targetY.set(newY)
+          // Clamp collision response to bounds
+          pushedX = Math.max(minX, Math.min(maxX, pushedX))
+          pushedY = Math.max(minY, Math.min(maxY, pushedY))
+
+          newTargetX = pushedX
+          newTargetY = pushedY
+          needsUpdate = true
         }
       })
 
-      // Report position
+      // Apply target updates (already clamped above)
+      if (needsUpdate) {
+        targetX.set(newTargetX)
+        targetY.set(newTargetY)
+      }
+
+      // Report position and velocity
       if (onPositionUpdate) {
-        onPositionUpdate(index, { x: currentX, y: currentY })
+        onPositionUpdate(index, {
+          x: currentX,
+          y: currentY,
+          vx: velocityRef.current.x,
+          vy: velocityRef.current.y
+        })
       }
 
       requestAnimationFrame(physicsLoop)
@@ -147,23 +204,31 @@ function DanglingLetter({
 
     const animationId = requestAnimationFrame(physicsLoop)
     return () => cancelAnimationFrame(animationId)
-  }, [index, x, y, targetX, targetY, anchorX, anchorY, stringLength, letterPositionsRef, onPositionUpdate, windowWidth, windowHeight])
+  }, [index, x, y, targetX, targetY, anchorX, anchorY, stringLength, letterPositionsRef, onPositionUpdate, windowWidth, windowHeight, isMobile])
 
-  // Click/tap handler - makes letter jump up with random jitter
+  // Click/tap handler - makes letter jump up with random jitter (within bounds)
   const handleLetterClick = (event) => {
     event.preventDefault()
 
-    // Get current positions
     const currentY = y.get()
     const currentX = x.get()
 
-    // Upward jump (90px)
-    const jumpHeight = 90
-    targetY.set(currentY - jumpHeight)
+    // Bounds for clamping
+    const horizontalPadding = isMobile ? 15 : 30
+    const minX = horizontalPadding
+    const maxX = windowWidth - horizontalPadding
+    const minY = anchorY + 15
 
-    // Random horizontal jitter (±30px)
-    const jitterX = (Math.random() - 0.5) * 60
-    targetX.set(currentX + jitterX)
+    // Upward jump
+    const jumpHeight = isMobile ? 60 : 100
+    const newY = Math.max(minY, currentY - jumpHeight)
+
+    // Random horizontal jitter, clamped to bounds
+    const jitterX = (Math.random() - 0.5) * 50
+    const newX = Math.max(minX, Math.min(maxX, currentX + jitterX))
+
+    targetY.set(newY)
+    targetX.set(newX)
   }
 
   return (
@@ -186,9 +251,14 @@ function DanglingLetter({
             [x, y, control1X, control1Y, control2X, control2Y],
             (latest) => {
               const [endX, endY, ctrl1X, ctrl1Y, ctrl2X, ctrl2Y] = latest
-              // Cubic bezier curve: M (start) C (control1) (control2) (end)
-              // This allows for S-curves and loops
-              return `M ${anchorX} ${anchorY} C ${ctrl1X} ${ctrl1Y}, ${ctrl2X} ${ctrl2Y}, ${endX} ${endY}`
+              // Offset to connect at top-center of letter
+              // Letter has transform: translate(-50%, 0%), shifting it left
+              // So we need to shift string endpoint left by half letter width to match
+              const letterWidth = isMobile ? 48 : 120 // approximate letter width (matches font size)
+              const letterHeight = isMobile ? 48 : 120
+              const stringEndX = endX + (letterWidth * 0.25) // offset to center of letter
+              const stringEndY = endY + (letterHeight * 0.12) // extend into top of letter
+              return `M ${anchorX} ${anchorY} C ${ctrl1X} ${ctrl1Y}, ${ctrl2X} ${ctrl2Y}, ${stringEndX} ${stringEndY}`
             }
           )}
           stroke="var(--color-black)"
@@ -214,14 +284,14 @@ function DanglingLetter({
           userSelect: 'none',
           cursor: 'grab',
           zIndex: 1000,
-          transform: 'translate(-50%, -10%)',
+          transform: 'translate(-50%, 0%)',
         }}
         whileHover={{
-          scale: 1.05,
+          scale: 1.1,
           color: 'var(--color-accent)',
-          transition: { duration: 0.2 }
+          transition: { duration: 0.15 }
         }}
-        whileTap={{ scale: 0.95 }}
+        whileTap={{ scale: 0.9, transition: { duration: 0.1 } }}
         onClick={handleLetterClick}
       >
         {letter}

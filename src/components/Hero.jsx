@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from 'react'
-import { motion } from 'framer-motion'
 import DanglingLetter from './DanglingLetter'
 import './Hero.css'
 
@@ -28,27 +27,30 @@ function Hero() {
     }
   }, [])
 
-  // Calculate anchor positions
+  // Calculate anchor positions with safe-zone for mobile
   const getAnchorPositions = () => {
     const isMobile = windowWidth <= 768
-    const stringLength = isMobile ? 120 : 200
-    // Nav height: padding + content + border (20px + ~20px + 20px + 1px ≈ 61px desktop, 15+15+15+1 ≈ 46px mobile)
+    // Longer strings to use more vertical space
+    const stringLength = isMobile ? 180 : 350
+    // Nav height: padding + content + border
     const navHeight = isMobile ? 46 : 61
 
-    // Distribute letters across viewport width
-    const positions = [
-      { x: windowWidth * 0.15, y: navHeight, length: stringLength }, // R
-      { x: windowWidth * 0.25, y: navHeight, length: stringLength }, // A
-      { x: windowWidth * 0.35, y: navHeight, length: stringLength }, // T
-      { x: windowWidth * 0.5, y: navHeight, length: stringLength },  // P
-      { x: windowWidth * 0.6, y: navHeight, length: stringLength },  // A
-      { x: windowWidth * 0.7, y: navHeight, length: stringLength },  // W
-      { x: windowWidth * 0.8, y: navHeight, length: stringLength },  // S
-    ]
+    // Larger safe margins - anchors stay well inside so letters can swing without escaping
+    const safeMargin = isMobile ? 80 : 180
+    const availableWidth = windowWidth - (safeMargin * 2)
+    const letterSpacing = availableWidth / 6 // 6 gaps for 7 letters
+
+    // Distribute letters evenly within safe zone
+    const positions = letters.map((_, i) => ({
+      x: safeMargin + (letterSpacing * i),
+      y: navHeight,
+      length: stringLength
+    }))
 
     return positions
   }
 
+  const isMobile = windowWidth <= 768
   const anchorPositions = getAnchorPositions()
 
   // Track letter positions for collision detection (using ref to avoid re-renders)
@@ -71,6 +73,7 @@ function Hero() {
             onPositionUpdate={handlePositionUpdate}
             windowWidth={windowWidth}
             windowHeight={windowHeight}
+            isMobile={isMobile}
           />
         ))}
       </div>
