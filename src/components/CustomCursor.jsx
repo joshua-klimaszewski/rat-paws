@@ -38,7 +38,10 @@ function CustomCursor() {
   }, [])
 
   // Don't render on touch devices
-  if (typeof window !== 'undefined' && window.matchMedia('(hover: none) and (pointer: coarse)').matches) {
+  if (
+    typeof window !== 'undefined' &&
+    window.matchMedia('(hover: none) and (pointer: coarse)').matches
+  ) {
     return null
   }
 

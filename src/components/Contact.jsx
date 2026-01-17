@@ -2,9 +2,7 @@ import { motion } from 'framer-motion'
 import './Contact.css'
 
 function Contact() {
-  const socialLinks = [
-    { name: 'INSTAGRAM', url: 'https://www.instagram.com/rat_paws__/?hl=en' },
-  ]
+  const socialLinks = [{ name: 'INSTAGRAM', url: 'https://www.instagram.com/rat_paws__/?hl=en' }]
 
   return (
     <section className="contact">

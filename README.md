@@ -86,6 +86,7 @@ The site deploys automatically to GitHub Pages on every push to the `main` branc
 5. Push your code to trigger the deployment
 
 The deployment workflow:
+
 1. Sets up Node.js
 2. Installs dependencies with `npm ci`
 3. Builds the app with `npm run build`
@@ -94,6 +95,7 @@ The deployment workflow:
 ## Content
 
 All content currently uses brutalist-styled placeholders:
+
 - Band bio and member info
 - Album releases and streaming links
 - Tour dates and venues
@@ -105,11 +107,13 @@ Real content can be easily added by updating the component files.
 ## Design System
 
 ### Colors
+
 - **Black**: `#000000` - Primary text, backgrounds
 - **White**: `#FFFFFF` - Backgrounds, text on black
 - **Accent**: `#AD34E5` - Purple for interactive elements
 
 ### Typography
+
 - **H1**: 120px desktop, 48px mobile
 - **H2**: 72px desktop, 36px mobile
 - **H3**: 48px desktop, 24px mobile
@@ -117,6 +121,7 @@ Real content can be easily added by updating the component files.
 - **Font**: System sans-serif stack
 
 ### Animations
+
 - Section entrance: Scale + opacity with cubic-bezier easing
 - Hover states: Scale 1.05 or color shift to accent
 - Custom cursor: Follows mouse, reacts to hovers

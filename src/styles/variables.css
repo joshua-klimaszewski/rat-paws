@@ -1,12 +1,12 @@
 :root {
   /* Colors - Brutalist Black/White */
   --color-black: #000000;
-  --color-white: #FFFFFF;
-  --color-accent: #E60000; /* Blood red - raw punk energy */
+  --color-white: #ffffff;
+  --color-accent: #e60000; /* Blood red - raw punk energy */
 
   /* Typography - Experimental Monospace Aesthetic */
-  --font-display: 'VT323', monospace;           /* Retro terminal for headings */
-  --font-primary: 'Courier Prime', monospace;   /* Typewriter/zine for body text */
+  --font-display: 'VT323', monospace; /* Retro terminal for headings */
+  --font-primary: 'Courier Prime', monospace; /* Typewriter/zine for body text */
 
   /* Font Sizes - Desktop */
   --font-size-h1: 120px;

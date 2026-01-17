@@ -7,6 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 This is a **brutalist, experimental band website** for Rat Paws, built with React + Vite and deployed to GitHub Pages via GitHub Actions.
 
 **Design Philosophy:**
+
 - High contrast black/white color scheme with strategic accent color
 - Oversized, bold typography (100px+ headings)
 - Asymmetrical, experimental layouts
@@ -70,11 +71,13 @@ src/
 ## Design System
 
 ### Color Palette
+
 - **Black**: `#000000` - Primary text, backgrounds
 - **White**: `#FFFFFF` - Backgrounds, text on black
 - **Accent**: `#AD34E5` (purple) or `#FF0000` (red) - Interactive elements, highlights
 
 ### Typography
+
 - **H1**: 100px+ desktop, 48px mobile (band name)
 - **H2**: 60-80px desktop, 36px mobile (section titles)
 - **H3**: 40-50px desktop, 24px mobile
@@ -82,6 +85,7 @@ src/
 - **Font**: System sans-serif (Helvetica, Arial) or custom web font
 
 ### Layout Principles
+
 - NO rounded corners - sharp, 90-degree angles only
 - NO shadows - flat, 2D aesthetic
 - NO gradients - solid colors only
@@ -90,6 +94,7 @@ src/
 - Content can overlap and bleed
 
 ### Animations (Framer Motion)
+
 - Section entrance: Scale from 0.8 to 1, opacity 0 to 1
 - Hover states: Scale 1.05 or color shift to accent
 - Custom cursor: Follows mouse, reacts to hovers
@@ -101,17 +106,20 @@ src/
 All content uses brutalist-styled placeholders:
 
 **Text:**
+
 - Band bio: Provocative placeholder text (ALL CAPS)
 - Members: "MEMBER 01", "MEMBER 02" or placeholder names
 - Albums: "UNTITLED RELEASE 001", "DEMO 2025"
 - Shows: Future dates (e.g., "2026-03-15")
 
 **Visuals:**
+
 - Member photos: Black rectangles with white text labels ("BASS", "DRUMS", "VOCALS")
 - Album artwork: Black/accent-colored rectangles
 - Gallery: Black rectangles labeled "PHOTO 01", "PHOTO 02"
 
 **Links:**
+
 - Social: Real platform URLs or `#` placeholders
 - Email: `booking@ratpaws.com` (placeholder mailto)
 - Merch: `#` placeholder links
@@ -151,5 +159,6 @@ To configure a custom domain:
 ## Additional Documentation
 
 For detailed implementation guides, see:
+
 - **[Dangling Letters Feature Guide](docs/dangling-letters-guide.md)** - Step-by-step implementation of the interactive physics-based hero animation
 - **[Complete Implementation Plan](docs/implementation-plan.md)** - Comprehensive plan for building the entire website from scratch

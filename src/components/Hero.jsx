@@ -37,14 +37,14 @@ function Hero() {
 
     // Larger safe margins - anchors stay well inside so letters can swing without escaping
     const safeMargin = isMobile ? 80 : 180
-    const availableWidth = windowWidth - (safeMargin * 2)
+    const availableWidth = windowWidth - safeMargin * 2
     const letterSpacing = availableWidth / 6 // 6 gaps for 7 letters
 
     // Distribute letters evenly within safe zone
     const positions = letters.map((_, i) => ({
-      x: safeMargin + (letterSpacing * i),
+      x: safeMargin + letterSpacing * i,
       y: navHeight,
-      length: stringLength
+      length: stringLength,
     }))
 
     return positions

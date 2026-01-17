@@ -3,8 +3,16 @@ import './Music.css'
 
 function Music() {
   const releases = [
-    { title: 'MUSTANG GIRL UNKNOWN', year: '2024', url: 'https://ratpaws.bandcamp.com/album/mustang-girl-unknown' },
-    { title: 'TRITE YOU ARE', year: '2023', url: 'https://ratpaws.bandcamp.com/album/trite-you-are' },
+    {
+      title: 'MUSTANG GIRL UNKNOWN',
+      year: '2024',
+      url: 'https://ratpaws.bandcamp.com/album/mustang-girl-unknown',
+    },
+    {
+      title: 'TRITE YOU ARE',
+      year: '2023',
+      url: 'https://ratpaws.bandcamp.com/album/trite-you-are',
+    },
     { title: "LET'S COOL", year: '2019', url: 'https://ratpaws.bandcamp.com/album/lets-cool' },
   ]
 

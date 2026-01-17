@@ -7,19 +7,19 @@ function Shows() {
       date: '2025-08-17',
       venue: 'OUTER LIMITS',
       location: 'DETROIT, MI',
-      with: "SHADY COVE, NANCY FRIDAY, ARLO BETLEY"
+      with: 'SHADY COVE, NANCY FRIDAY, ARLO BETLEY',
     },
     {
       date: '2025-08-25',
       venue: 'GINGKO RECORDS',
       location: 'DETROIT, MI',
-      with: "CASSIE RAMONE, CHLOE DRALLOS"
+      with: 'CASSIE RAMONE, CHLOE DRALLOS',
     },
     {
       date: '2025-10-24',
       venue: 'PARIS BAR',
       location: 'DETROIT, MI',
-      with: "STEF CHURA, MIRROR MASK, PRETTY ISLANDS"
+      with: 'STEF CHURA, MIRROR MASK, PRETTY ISLANDS',
     },
     {
       date: '2025-11-19',
@@ -30,19 +30,13 @@ function Shows() {
       date: '2025-12-22',
       venue: 'BOWLERO LOUNGE',
       location: 'ROYAL OAK, MI',
-      with: "DEADBEAT BEAT"
+      with: 'DEADBEAT BEAT',
     },
     {
       date: '2026-01-16',
       venue: 'MOONDOG CAFE',
       location: 'DETROIT, MI',
-      with: "MODERN NATURE, BRIGID DAWSON & THE MOTHERS NETWORK"
-    },
-    {
-      date: '2026-02-06',
-      venue: "ZIGGY'S",
-      location: 'YPSILANTI, MI',
-      with: "JIM CHEREWICK, TURN TO CRIME"
+      with: 'MODERN NATURE, BRIGID DAWSON & THE MOTHERS NETWORK',
     },
   ]
 
@@ -93,7 +87,6 @@ function Shows() {
                   <span className="show-location">{show.location}</span>
                   {show.with && <span className="show-with">WITH {show.with}</span>}
                 </div>
-
               </motion.div>
             )
           })}
