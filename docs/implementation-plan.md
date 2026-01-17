@@ -16,20 +16,24 @@ Build an experimental, brutalist single-page website for the band "Rat Paws" ins
 ## Tech Stack Details
 
 **Frontend Framework:**
+
 - **React 18** - Component architecture and state management
 - **Vite** - Fast build tool and dev server, optimized for GitHub Pages deployment
 - **Framer Motion** - Production-ready animation library for smooth transitions and section expansions
 
 **Styling:**
+
 - **CSS Modules** or **Styled Components** - Scoped styling approach
 - Custom CSS for brutalist aesthetic - no UI component libraries (raw, experimental design)
 
 **Build & Deployment:**
+
 - **GitHub Actions** - Automated build and deployment pipeline
 - **GitHub Pages** - Free static hosting
 - Modified workflow to: install deps → build React app → deploy dist folder
 
 **Optional Enhancements:**
+
 - **GSAP** - For advanced scroll animations if Framer Motion is insufficient
 - **React Intersection Observer** - Trigger animations on scroll
 - **React Router** - For hash-based routing between sections (optional)
@@ -37,6 +41,7 @@ Build an experimental, brutalist single-page website for the band "Rat Paws" ins
 ## Critical Files
 
 **New Files to Create:**
+
 - `package.json` - Project dependencies and scripts
 - `vite.config.js` - Vite configuration for GitHub Pages base path
 - `src/App.jsx` - Main React component
@@ -46,10 +51,12 @@ Build an experimental, brutalist single-page website for the band "Rat Paws" ins
 - `.github/workflows/deploy.yml` - Modified deployment workflow (update existing)
 
 **Files to Modify/Replace:**
+
 - `index.html` - Will become Vite's HTML template (minimal, loads React bundle)
 - `.github/workflows/deploy.yml` - Add build step before deployment
 
 **Files to Keep:**
+
 - `README.md` - Update with new tech stack info
 - `CLAUDE.md` - Update deployment instructions
 
@@ -117,12 +124,14 @@ Build an experimental, brutalist single-page website for the band "Rat Paws" ins
 Implement brutalist design foundations:
 
 **Color Palette:**
+
 - Pure black: `#000000` (primary text, backgrounds)
 - Pure white: `#FFFFFF` (backgrounds, text on black)
 - Accent color: Bold, high-contrast color (suggest: `#FF0000` red or `#AD34E5` purple like Mirelle Borra)
 - No grays, no gradients - stark contrast only
 
 **Typography:**
+
 - Large, oversized headings:
   - H1: 100px+ desktop, 48px mobile (band name)
   - H2: 60-80px desktop, 36px mobile (section titles)
@@ -133,12 +142,14 @@ Implement brutalist design foundations:
 - Tight line-height (1.1-1.2) for headings, normal (1.5) for body
 
 **Spacing System:**
+
 - Large section padding: 120px+ desktop, 60px mobile
 - Asymmetrical spacing (break conventional grid)
 - Visible gutters and structural spacing
 - Variable spacing based on content, not uniform
 
 **Layout Principles:**
+
 - NO rounded corners - sharp, 90-degree angles only
 - NO shadows - flat, 2D aesthetic
 - NO gradients - solid colors only
@@ -163,6 +174,7 @@ Implement brutalist design foundations:
 **Create**: `src/components/Navigation.jsx`
 
 Brutalist navigation approach:
+
 - Minimal, text-only navigation (no icons unless brutalist style)
 - Position: Fixed or absolute (experimental placement - top-right, vertical side, etc.)
 - Large, bold typography for nav links
@@ -177,6 +189,7 @@ Brutalist navigation approach:
 **Create**: `src/components/Hero.jsx`
 
 Full-viewport hero with impact:
+
 - Band name "RAT PAWS" in massive typography (100-150px)
 - Fractured/broken text layout (each word on different line, asymmetrical)
 - Consider text rotation or vertical text orientation
@@ -191,6 +204,7 @@ Full-viewport hero with impact:
 **Create**: `src/components/About.jsx`
 
 Raw, experimental layout:
+
 - Section expansion animation on scroll (starts collapsed/scaled, expands into view)
 - Band bio in large paragraph text (24px+)
 - Member cards with brutalist aesthetic:
@@ -207,6 +221,7 @@ Raw, experimental layout:
 **Create**: `src/components/Music.jsx`
 
 Discography as bold statement:
+
 - Album "cards" are large, stark rectangles (black or accent color)
 - Album titles in huge text (50px+)
 - Release dates in small, mono-spaced font
@@ -226,6 +241,7 @@ Discography as bold statement:
 **Create**: `src/components/Shows.jsx`
 
 Table/list with structural honesty:
+
 - Large table with visible borders (thick black lines)
 - Columns: DATE | VENUE | LOCATION | TICKETS
 - Typography: All caps, mono-spaced or bold sans-serif
@@ -241,6 +257,7 @@ Table/list with structural honesty:
 **Create**: `src/components/Gallery.jsx`
 
 Grid with visual impact:
+
 - Photo grid: Varied sizes (masonry or CSS grid with different cell sizes)
 - Placeholder images: Solid black rectangles with white text labels ("PHOTO 01", "PHOTO 02")
 - No rounded corners, no shadows
@@ -255,10 +272,12 @@ Grid with visual impact:
 **Create**: `src/components/Contact.jsx`
 
 Raw information display:
+
 - Split horizontally or vertically into CONTACT | MERCH subsections
 - Large section titles (60px+)
 
 **Contact:**
+
 - Email in large text (30px+), clickable mailto link
 - Social media as vertical or horizontal list:
   - Text-only links (no icons): "INSTAGRAM", "TIKTOK", "YOUTUBE", etc.
@@ -268,6 +287,7 @@ Raw information display:
   - Submit: Black rectangle button, inverts on hover
 
 **Merch:**
+
 - "BUY MERCH" as huge headline
 - Links to stores (BANDCAMP, CUSTOM STORE) in large text
 - Placeholder merch items: Black rectangles with product names in white text
@@ -278,6 +298,7 @@ Raw information display:
 **Create**: Footer in `App.jsx` or separate component
 
 Minimal footer:
+
 - Black background, white text (or inverse)
 - Copyright: "© 2026 RAT PAWS" in small text
 - Social links repeated (small, text-only)
@@ -291,27 +312,32 @@ Minimal footer:
 Implement key animations using Framer Motion:
 
 **Page Load:**
+
 - Hero text staggers in (each letter or word)
 - Navigation fades in
 - Initial section reveals
 
 **Section Transitions:**
+
 - Intersection Observer triggers section entrance
 - Scale transform: Sections start at `scale(0.8)` and animate to `scale(1)`
 - Opacity: 0 → 1 transition
 - Custom cubic-bezier easing: `cubic-bezier(0.22, 1, 0.36, 1)` (smooth, experimental)
 
 **Hover States:**
+
 - Scale animations on links/buttons: `scale(1.05)` or `scale(0.95)`
 - Color transitions: `transition: color 0.3s ease`
 - Custom cursor follows and reacts to hovers (scale up, color change)
 
 **Click/Expansion:**
+
 - Gallery images expand to fullscreen with AnimatePresence
 - Navigation clicks trigger smooth scroll + section highlight animation
 - Section expansion on click (optional): Click section title to expand/collapse details
 
 **Scroll Effects (Optional):**
+
 - Parallax on hero elements (subtle)
 - Active section highlighting in navigation based on scroll position
 - Progress indicator or scroll percentage display
@@ -319,6 +345,7 @@ Implement key animations using Framer Motion:
 #### 4.2 Experimental Interactions
 
 Push brutalist boundaries:
+
 - Glitch effects on hover (optional, text distortion)
 - Cursor trail effect (fading dots following cursor)
 - Text selection styling: Change background to accent color, white text
@@ -330,6 +357,7 @@ Push brutalist boundaries:
 #### 5.1 Mobile Responsive Design
 
 Brutalist mobile approach:
+
 - Same aesthetic, adjusted typography sizes
 - Reduce heading sizes (H1: 48px, H2: 36px)
 - Single-column layouts
@@ -343,6 +371,7 @@ Brutalist mobile approach:
 #### 5.2 Accessibility
 
 Ensure brutalist design is accessible:
+
 - Semantic HTML: header, nav, main, section, article, footer
 - Heading hierarchy: Proper h1-h6 structure
 - Alt text for all images (even placeholder boxes)
@@ -355,6 +384,7 @@ Ensure brutalist design is accessible:
 #### 5.3 Performance Optimization
 
 Keep site fast:
+
 - Code splitting: Lazy load components if needed
 - Image optimization: Use placeholder boxes (avoid large images initially)
 - Minify CSS/JS in production build
@@ -365,6 +395,7 @@ Keep site fast:
 #### 5.4 Browser Testing
 
 Cross-browser compatibility:
+
 - Test in Chrome, Firefox, Safari, Edge
 - Verify Framer Motion animations work consistently
 - Check custom cursor implementation (may need fallbacks)
@@ -376,6 +407,7 @@ Cross-browser compatibility:
 All content will be brutalist-styled placeholders:
 
 **Text Content:**
+
 - Band bio: Provocative, bold placeholder text (not Lorem Ipsum - use band-themed copy)
 - Member names: "MEMBER 01", "MEMBER 02", etc. or actual placeholder names
 - Album titles: "UNTITLED RELEASE 001", "DEMO 2025", etc.
@@ -383,17 +415,20 @@ All content will be brutalist-styled placeholders:
 - All text should be ALL CAPS or bold to match brutalist aesthetic
 
 **Visual Placeholders:**
+
 - Member photos: Solid black rectangles with white text labels ("BASS", "DRUMS", "VOCALS")
 - Album artwork: Black or accent-colored rectangles (no images)
 - Gallery images: Black rectangles with "PHOTO 01", "PHOTO 02" labels in white
 - Video placeholders: Black rectangles with "VIDEO" label
 
 **Links:**
+
 - Social media: Use real platform URLs (instagram.com, spotify.com) or `#` placeholders
 - Email: `booking@ratpaws.com` placeholder (mailto link)
 - Merch store: `#` placeholder links
 
 **Data:**
+
 - Show dates: 3-5 placeholder events with future dates (e.g., "2026-03-15")
 - Release dates: Fictional dates for albums
 - Copyright year: 2026
@@ -401,24 +436,28 @@ All content will be brutalist-styled placeholders:
 ## Implementation Notes
 
 **Architecture Decisions:**
+
 - Use CSS Modules for component-scoped styling (preferred) or Styled Components
 - State management: React useState and useContext (no Redux needed for simple site)
 - Routing: Not required (single page) unless implementing hash-based section routing
 - Custom cursor implemented as global context/provider component
 
 **Code Organization:**
+
 - One component per section (Hero, About, Music, etc.)
 - Shared components folder for reusable elements (Button, CustomCursor, etc.)
 - Global styles in `src/styles/global.css`
 - CSS variables in `src/styles/variables.css` for colors, spacing, typography
 
 **Build Configuration:**
+
 - Vite base path must match GitHub repository name
 - Build output to `dist/` directory
 - GitHub Actions deploys `dist/` to `gh-pages` branch or direct Pages deployment
 - Environment variables (if needed) via `.env` files
 
 **Best Practices:**
+
 - Component composition over prop drilling
 - Framer Motion variants for consistent animations
 - Intersection Observer for scroll-triggered effects
@@ -430,10 +469,12 @@ All content will be brutalist-styled placeholders:
 ### Local Development Testing
 
 1. **Setup & Build:**
+
    ```bash
    npm install
    npm run dev
    ```
+
    - Verify Vite dev server starts on localhost:5173
    - Check for console errors in browser dev tools
    - Hot module replacement (HMR) should work
@@ -496,9 +537,11 @@ All content will be brutalist-styled placeholders:
 ### Build & Deployment Testing
 
 7. **Production Build:**
+
    ```bash
    npm run build
    ```
+
    - Build completes without errors
    - Check `dist/` folder contents:
      - `index.html` present
@@ -543,12 +586,14 @@ All content will be brutalist-styled placeholders:
 These can be added after initial launch:
 
 **Content Integration:**
+
 - Real band photos and member headshots
 - Actual album artwork and release information
 - Real show dates and ticket integration (e.g., Bandsintown API)
 - Music player embeds (Spotify, Bandcamp players)
 
 **Features:**
+
 - Contact form backend (using Formspree, Netlify Forms, or custom API)
 - Mailing list integration (Mailchimp embed or custom solution)
 - Blog/news section for updates
@@ -556,6 +601,7 @@ These can be added after initial launch:
 - Music visualizer (Web Audio API + Canvas)
 
 **Advanced Interactions:**
+
 - GSAP-powered scroll animations (parallax, scroll-triggered reveals)
 - Three.js 3D elements or background (if desired for extra experimentation)
 - Page transitions between sections (expand/collapse animations)
@@ -563,17 +609,20 @@ These can be added after initial launch:
 - WebGL shaders for glitch effects
 
 **Backend/CMS:**
+
 - Headless CMS integration (Contentful, Sanity, Strapi) for easy content updates
 - Admin panel for updating shows, releases, photos
 - Analytics dashboard (Google Analytics, Plausible)
 
 **Optimization:**
+
 - Image CDN for faster loading (Cloudinary, Imgix)
 - Custom domain setup (CNAME file + DNS configuration)
 - SEO optimization (meta tags, structured data, sitemap)
 - Social media Open Graph images
 
 **Experimental:**
+
 - Generative art backgrounds
 - Interactive audio-reactive visuals
 - AR/VR experiences (WebXR)
@@ -582,6 +631,7 @@ These can be added after initial launch:
 ## Project Summary
 
 **Scope:**
+
 - Single-page brutalist website with 6-7 main sections
 - React + Vite + Framer Motion tech stack
 - Black/white design with bold typography and experimental layouts
@@ -591,6 +641,7 @@ These can be added after initial launch:
 - Custom cursor and thoughtful hover/expansion animations
 
 **Estimated Complexity:**
+
 - Setup & Infrastructure: Medium (Vite config, GitHub Actions)
 - Design System: High (custom brutalist aesthetic, no libraries)
 - Components: Medium (7-8 components with animations)
@@ -598,6 +649,7 @@ These can be added after initial launch:
 - Testing & Polish: Medium (cross-browser, accessibility, deployment)
 
 **Key Inspirations:**
+
 - mirelleborra.com (favorite) - Scale animations, custom cursor, purple accent
 - 56.digital - Minimalist, text-heavy, asymmetrical layouts
 - anorakfilm.com - Bold typography, structural honesty

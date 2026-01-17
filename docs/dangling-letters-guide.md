@@ -29,12 +29,14 @@ This is a **very complex feature** with advanced physics simulation. Implement i
 **Goal:** Create the component skeleton with basic rendering (no physics yet)
 
 **Files to create:**
+
 - `/src/components/DanglingLetter.jsx`
 - `/src/components/DanglingLetter.css`
 
 **Implementation:**
 
 `DanglingLetter.jsx`:
+
 ```jsx
 import { motion } from 'framer-motion'
 import './DanglingLetter.css'
@@ -56,7 +58,7 @@ function DanglingLetter({ letter, anchorX, anchorY, stringLength, index }) {
           width: '100%',
           height: '100%',
           pointerEvents: 'none',
-          zIndex: 999
+          zIndex: 999,
         }}
       >
         <line
@@ -96,6 +98,7 @@ export default DanglingLetter
 ```
 
 `DanglingLetter.css`:
+
 ```css
 .dangling-letter {
   will-change: transform;
@@ -121,6 +124,7 @@ export default DanglingLetter
 ```
 
 **Testing:**
+
 - Import component in Hero.jsx (don't render yet)
 - Verify no errors
 - Component compiles successfully
@@ -132,12 +136,14 @@ export default DanglingLetter
 **Goal:** Refactor Hero.jsx to render 7 DanglingLetter instances
 
 **Files to modify:**
+
 - `/src/components/Hero.jsx`
 - `/src/components/Hero.css`
 
 **Implementation:**
 
 `Hero.jsx`:
+
 ```jsx
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
@@ -177,10 +183,10 @@ function Hero() {
       { x: windowWidth * 0.15, y: navHeight, length: stringLength }, // R
       { x: windowWidth * 0.25, y: navHeight, length: stringLength }, // A
       { x: windowWidth * 0.35, y: navHeight, length: stringLength }, // T
-      { x: windowWidth * 0.5, y: navHeight, length: stringLength },  // P
-      { x: windowWidth * 0.6, y: navHeight, length: stringLength },  // A
-      { x: windowWidth * 0.7, y: navHeight, length: stringLength },  // W
-      { x: windowWidth * 0.8, y: navHeight, length: stringLength },  // S
+      { x: windowWidth * 0.5, y: navHeight, length: stringLength }, // P
+      { x: windowWidth * 0.6, y: navHeight, length: stringLength }, // A
+      { x: windowWidth * 0.7, y: navHeight, length: stringLength }, // W
+      { x: windowWidth * 0.8, y: navHeight, length: stringLength }, // S
     ]
 
     return positions
@@ -213,6 +219,7 @@ export default Hero
 ```
 
 `Hero.css`:
+
 ```css
 .hero {
   min-height: calc(100vh - 60px);
@@ -276,6 +283,7 @@ export default Hero
 ```
 
 **Testing:**
+
 - Visit homepage (http://localhost:5173/)
 - Should see 7 letters (R-A-T-P-A-W-S) hanging straight down
 - Each letter connected to nav bar with visible black line
@@ -290,11 +298,13 @@ export default Hero
 **Goal:** Implement spring-based pendulum simulation using Framer Motion
 
 **Files to modify:**
+
 - `/src/components/DanglingLetter.jsx`
 
 **Implementation:**
 
 Update `DanglingLetter.jsx`:
+
 ```jsx
 import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion'
 import { useEffect } from 'react'
@@ -306,22 +316,16 @@ function DanglingLetter({ letter, anchorX, anchorY, stringLength, index }) {
 
   // Spring physics configuration
   const springAngle = useSpring(angle, {
-    stiffness: 100,   // String tension
-    damping: 15,      // Air resistance
-    mass: 1.2,        // Letter weight
+    stiffness: 100, // String tension
+    damping: 15, // Air resistance
+    mass: 1.2, // Letter weight
     restDelta: 0.001,
-    restSpeed: 0.001
+    restSpeed: 0.001,
   })
 
   // Convert angle to x,y coordinates (circular arc around anchor)
-  const x = useTransform(
-    springAngle,
-    (a) => anchorX + Math.sin(a) * stringLength
-  )
-  const y = useTransform(
-    springAngle,
-    (a) => anchorY + Math.cos(a) * stringLength
-  )
+  const x = useTransform(springAngle, (a) => anchorX + Math.sin(a) * stringLength)
+  const y = useTransform(springAngle, (a) => anchorY + Math.cos(a) * stringLength)
 
   // Random drop animation on mount
   useEffect(() => {
@@ -345,7 +349,7 @@ function DanglingLetter({ letter, anchorX, anchorY, stringLength, index }) {
           width: '100%',
           height: '100%',
           pointerEvents: 'none',
-          zIndex: 999
+          zIndex: 999,
         }}
       >
         <motion.line
@@ -380,7 +384,7 @@ function DanglingLetter({ letter, anchorX, anchorY, stringLength, index }) {
         whileHover={{
           scale: 1.05,
           color: 'var(--color-accent)',
-          transition: { duration: 0.2 }
+          transition: { duration: 0.2 },
         }}
       >
         {letter}
@@ -393,6 +397,7 @@ export default DanglingLetter
 ```
 
 **Testing:**
+
 - Reload page - letters should drop and swing like pendulums
 - Each letter drops at different time (random stagger)
 - Letters swing back and forth 2-3 times before settling
@@ -407,11 +412,13 @@ export default DanglingLetter
 **Goal:** Enable click-and-drag with momentum on release
 
 **Files to modify:**
+
 - `/src/components/DanglingLetter.jsx`
 
 **Implementation:**
 
 Update `DanglingLetter.jsx` (add drag handlers):
+
 ```jsx
 import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion'
 import { useState, useEffect } from 'react'
@@ -427,17 +434,11 @@ function DanglingLetter({ letter, anchorX, anchorY, stringLength, index }) {
     damping: 15,
     mass: 1.2,
     restDelta: 0.001,
-    restSpeed: 0.001
+    restSpeed: 0.001,
   })
 
-  const x = useTransform(
-    springAngle,
-    (a) => anchorX + Math.sin(a) * stringLength
-  )
-  const y = useTransform(
-    springAngle,
-    (a) => anchorY + Math.cos(a) * stringLength
-  )
+  const x = useTransform(springAngle, (a) => anchorX + Math.sin(a) * stringLength)
+  const y = useTransform(springAngle, (a) => anchorY + Math.cos(a) * stringLength)
 
   // Random drop animation on mount
   useEffect(() => {
@@ -490,7 +491,7 @@ function DanglingLetter({ letter, anchorX, anchorY, stringLength, index }) {
           width: '100%',
           height: '100%',
           pointerEvents: 'none',
-          zIndex: 999
+          zIndex: 999,
         }}
       >
         <motion.line
@@ -531,7 +532,7 @@ function DanglingLetter({ letter, anchorX, anchorY, stringLength, index }) {
         whileHover={{
           scale: 1.05,
           color: 'var(--color-accent)',
-          transition: { duration: 0.2 }
+          transition: { duration: 0.2 },
         }}
         whileTap={{ scale: 0.95 }}
       >
@@ -545,6 +546,7 @@ export default DanglingLetter
 ```
 
 **Testing:**
+
 - Click and drag any letter
 - Cursor changes to "grabbing" during drag
 - Letter follows mouse cursor smoothly
@@ -560,12 +562,14 @@ export default DanglingLetter
 **Goal:** Detect when letters collide and make them bounce off each other
 
 **Files to modify:**
+
 - `/src/components/DanglingLetter.jsx`
 - `/src/components/Hero.jsx`
 
 **Implementation:**
 
 Update `Hero.jsx` (add position tracking):
+
 ```jsx
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
@@ -616,7 +620,7 @@ function Hero() {
 
   // Track letter positions for collision detection
   const handlePositionUpdate = (index, position) => {
-    setLetterPositions(prev => {
+    setLetterPositions((prev) => {
       const updated = [...prev]
       updated[index] = position
       return updated
@@ -649,6 +653,7 @@ export default Hero
 ```
 
 Update `DanglingLetter.jsx` (add collision detection):
+
 ```jsx
 import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion'
 import { useState, useEffect } from 'react'
@@ -661,7 +666,7 @@ function DanglingLetter({
   stringLength,
   index,
   allLetters = [],
-  onPositionUpdate
+  onPositionUpdate,
 }) {
   const [isDragging, setIsDragging] = useState(false)
 
@@ -672,17 +677,11 @@ function DanglingLetter({
     damping: 15,
     mass: 1.2,
     restDelta: 0.001,
-    restSpeed: 0.001
+    restSpeed: 0.001,
   })
 
-  const x = useTransform(
-    springAngle,
-    (a) => anchorX + Math.sin(a) * stringLength
-  )
-  const y = useTransform(
-    springAngle,
-    (a) => anchorY + Math.cos(a) * stringLength
-  )
+  const x = useTransform(springAngle, (a) => anchorX + Math.sin(a) * stringLength)
+  const y = useTransform(springAngle, (a) => anchorY + Math.cos(a) * stringLength)
 
   // Random drop animation on mount
   useEffect(() => {
@@ -767,7 +766,7 @@ function DanglingLetter({
           width: '100%',
           height: '100%',
           pointerEvents: 'none',
-          zIndex: 999
+          zIndex: 999,
         }}
       >
         <motion.line
@@ -807,7 +806,7 @@ function DanglingLetter({
         whileHover={{
           scale: 1.05,
           color: 'var(--color-accent)',
-          transition: { duration: 0.2 }
+          transition: { duration: 0.2 },
         }}
         whileTap={{ scale: 0.95 }}
       >
@@ -821,6 +820,7 @@ export default DanglingLetter
 ```
 
 **Testing:**
+
 - Drag one letter into another
 - Letters should bounce off each other
 - Bounce should look realistic (not sticky, not too elastic)
@@ -836,12 +836,14 @@ export default DanglingLetter
 **Goal:** Enable touch drag on mobile without scroll conflicts
 
 **Files to modify:**
+
 - `/src/components/DanglingLetter.css`
 - `/src/components/DanglingLetter.jsx` (adjust spring config for mobile)
 
 **Implementation:**
 
 Update `DanglingLetter.css`:
+
 ```css
 .dangling-letter {
   will-change: transform;
@@ -868,16 +870,17 @@ Update `DanglingLetter.css`:
 ```
 
 Update `DanglingLetter.jsx` (adjust spring for mobile):
+
 ```jsx
 // Add this logic inside DanglingLetter component, before useMotionValue
 const isMobile = window.innerWidth <= 768
 
 const springConfig = {
-  stiffness: isMobile ? 120 : 100,   // Faster settling on mobile
-  damping: isMobile ? 20 : 15,        // Higher damping on mobile
-  mass: isMobile ? 1 : 1.2,           // Lighter on mobile
+  stiffness: isMobile ? 120 : 100, // Faster settling on mobile
+  damping: isMobile ? 20 : 15, // Higher damping on mobile
+  mass: isMobile ? 1 : 1.2, // Lighter on mobile
   restDelta: 0.001,
-  restSpeed: 0.001
+  restSpeed: 0.001,
 }
 
 // Then use springConfig in useSpring:
@@ -885,6 +888,7 @@ const springAngle = useSpring(angle, springConfig)
 ```
 
 **Testing (requires real mobile device or emulator):**
+
 - Test on iPhone/Android device
 - Can drag letters without triggering page scroll
 - Can still scroll page by swiping outside letters
@@ -899,12 +903,14 @@ const springAngle = useSpring(angle, springConfig)
 **Goal:** Ensure 60fps performance with GPU acceleration
 
 **Files to modify:**
+
 - `/src/components/DanglingLetter.css` (already done in Task 6)
 - `/src/components/DanglingLetter.jsx` (add optimization)
 
 **Implementation:**
 
 Update `DanglingLetter.jsx` (optimize collision checks):
+
 ```jsx
 // In checkCollisions function, add early exit optimization:
 useEffect(() => {
@@ -950,6 +956,7 @@ useEffect(() => {
 ```
 
 **Testing:**
+
 - Open Chrome DevTools → Performance tab
 - Start recording
 - Drag letters and create collisions
@@ -964,12 +971,14 @@ useEffect(() => {
 **Goal:** Ensure screen reader support and reduced motion compliance
 
 **Files already created:**
+
 - `/src/components/Hero.css` (Task 2 already includes reduced motion styles)
 - `/src/components/Hero.jsx` (Task 2 already includes sr-only h1)
 
 **Testing:**
 
 **Screen Reader Test:**
+
 - macOS: Enable VoiceOver (Cmd+F5)
 - Windows: Enable NVDA
 - Tab to homepage
@@ -977,6 +986,7 @@ useEffect(() => {
 - Letters themselves should not be announced (decorative)
 
 **Reduced Motion Test:**
+
 - macOS: System Preferences → Accessibility → Display → Reduce Motion
 - Windows: Settings → Ease of Access → Display → Show animations
 - Reload page
@@ -993,6 +1003,7 @@ useEffect(() => {
 **Testing Checklist:**
 
 **Chrome (Desktop):**
+
 - [ ] Letters render correctly
 - [ ] Physics behaves smoothly
 - [ ] Drag interaction works
@@ -1000,24 +1011,28 @@ useEffect(() => {
 - [ ] Performance at 60fps
 
 **Firefox (Desktop):**
+
 - [ ] Letters render correctly
 - [ ] Physics behaves smoothly
 - [ ] Drag interaction works
 - [ ] Collision detection works
 
 **Safari (Desktop):**
+
 - [ ] Letters render correctly
 - [ ] Strings render without artifacts
 - [ ] Physics behaves smoothly
 - [ ] Drag interaction works
 
 **Safari iOS (Mobile):**
+
 - [ ] Touch drag works
 - [ ] No scroll conflict
 - [ ] Performance acceptable (30+ fps)
 - [ ] Collision detection works
 
 **Chrome Android (Mobile):**
+
 - [ ] Touch drag works
 - [ ] No scroll conflict
 - [ ] Performance acceptable (30+ fps)
@@ -1054,6 +1069,7 @@ useEffect(() => {
    - Check Chrome DevTools Memory tab
 
 **Final Visual Polish:**
+
 - Hover effects smooth and subtle
 - String lines always visible and crisp
 - No visual glitches during collisions
@@ -1074,21 +1090,27 @@ useEffect(() => {
 ## Common Issues & Solutions
 
 **Issue: Letters get stuck after collision**
+
 - **Solution:** Increase `overlap * 0.1` to `overlap * 0.15` for stronger separation force
 
 **Issue: Letters swing forever, never settle**
+
 - **Solution:** Increase damping from 15 to 20-25
 
 **Issue: Frame rate drops during collisions**
+
 - **Solution:** Implement spatial partitioning or reduce collision check frequency
 
 **Issue: Touch drag triggers page scroll on mobile**
+
 - **Solution:** Ensure `touch-action: none` is applied to `.dangling-letter`
 
 **Issue: Strings don't render in Safari**
+
 - **Solution:** Check SVG syntax, ensure motion.line is used correctly
 
 **Issue: Letters overlap on narrow screens**
+
 - **Solution:** Adjust anchor position percentages or reduce font size on mobile
 
 ---

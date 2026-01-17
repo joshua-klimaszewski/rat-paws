@@ -12,7 +12,7 @@ function DanglingLetter({
   onPositionUpdate,
   windowWidth,
   windowHeight,
-  isMobile
+  isMobile,
 }) {
   // Direct position motion values (not angle-based)
   const targetX = useMotionValue(anchorX)
@@ -24,9 +24,9 @@ function DanglingLetter({
 
   // Softer spring config - bouncy and elastic like original
   const springConfig = {
-    stiffness: isMobile ? 50 : 40,  // Low = bouncy
-    damping: isMobile ? 8 : 6,      // Low = more oscillation
-    mass: isMobile ? 2.0 : 2.5,     // Heavy = more momentum
+    stiffness: isMobile ? 50 : 40, // Low = bouncy
+    damping: isMobile ? 8 : 6, // Low = more oscillation
+    mass: isMobile ? 2.0 : 2.5, // Heavy = more momentum
   }
 
   const x = useSpring(targetX, springConfig)
@@ -121,7 +121,7 @@ function DanglingLetter({
       // Track velocity from position delta (for collision response)
       velocityRef.current = {
         x: currentX - prevPosRef.current.x,
-        y: currentY - prevPosRef.current.y
+        y: currentY - prevPosRef.current.y,
       }
       prevPosRef.current = { x: currentX, y: currentY }
 
@@ -195,7 +195,7 @@ function DanglingLetter({
           x: currentX,
           y: currentY,
           vx: velocityRef.current.x,
-          vy: velocityRef.current.y
+          vy: velocityRef.current.y,
         })
       }
 
@@ -204,7 +204,21 @@ function DanglingLetter({
 
     const animationId = requestAnimationFrame(physicsLoop)
     return () => cancelAnimationFrame(animationId)
-  }, [index, x, y, targetX, targetY, anchorX, anchorY, stringLength, letterPositionsRef, onPositionUpdate, windowWidth, windowHeight, isMobile])
+  }, [
+    index,
+    x,
+    y,
+    targetX,
+    targetY,
+    anchorX,
+    anchorY,
+    stringLength,
+    letterPositionsRef,
+    onPositionUpdate,
+    windowWidth,
+    windowHeight,
+    isMobile,
+  ])
 
   // Click/tap handler - makes letter jump up with random jitter (within bounds)
   const handleLetterClick = (event) => {
@@ -243,24 +257,21 @@ function DanglingLetter({
           width: '100%',
           height: '100%',
           pointerEvents: 'none',
-          zIndex: 999
+          zIndex: 999,
         }}
       >
         <motion.path
-          d={useTransform(
-            [x, y, control1X, control1Y, control2X, control2Y],
-            (latest) => {
-              const [endX, endY, ctrl1X, ctrl1Y, ctrl2X, ctrl2Y] = latest
-              // Offset to connect at top-center of letter
-              // Letter has transform: translate(-50%, 0%), shifting it left
-              // So we need to shift string endpoint left by half letter width to match
-              const letterWidth = isMobile ? 48 : 120 // approximate letter width (matches font size)
-              const letterHeight = isMobile ? 48 : 120
-              const stringEndX = endX + (letterWidth * 0.25) // offset to center of letter
-              const stringEndY = endY + (letterHeight * 0.12) // extend into top of letter
-              return `M ${anchorX} ${anchorY} C ${ctrl1X} ${ctrl1Y}, ${ctrl2X} ${ctrl2Y}, ${stringEndX} ${stringEndY}`
-            }
-          )}
+          d={useTransform([x, y, control1X, control1Y, control2X, control2Y], (latest) => {
+            const [endX, endY, ctrl1X, ctrl1Y, ctrl2X, ctrl2Y] = latest
+            // Offset to connect at top-center of letter
+            // Letter has transform: translate(-50%, 0%), shifting it left
+            // So we need to shift string endpoint left by half letter width to match
+            const letterWidth = isMobile ? 48 : 120 // approximate letter width (matches font size)
+            const letterHeight = isMobile ? 48 : 120
+            const stringEndX = endX + letterWidth * 0.25 // offset to center of letter
+            const stringEndY = endY + letterHeight * 0.12 // extend into top of letter
+            return `M ${anchorX} ${anchorY} C ${ctrl1X} ${ctrl1Y}, ${ctrl2X} ${ctrl2Y}, ${stringEndX} ${stringEndY}`
+          })}
           stroke="var(--color-black)"
           strokeWidth="2"
           fill="none"
@@ -289,7 +300,7 @@ function DanglingLetter({
         whileHover={{
           scale: 1.1,
           color: 'var(--color-accent)',
-          transition: { duration: 0.15 }
+          transition: { duration: 0.15 },
         }}
         whileTap={{ scale: 0.9, transition: { duration: 0.1 } }}
         onClick={handleLetterClick}

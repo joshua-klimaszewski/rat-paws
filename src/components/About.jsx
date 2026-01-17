@@ -24,10 +24,7 @@ function About() {
     },
   }
 
-  const bioFragments = [
-    'RAT PAWS IS A',
-    'BAND FROM DETROIT',
-  ]
+  const bioFragments = ['RAT PAWS IS A', 'BAND FROM DETROIT']
 
   const members = [
     { role: 'VOCALS', name: 'MEMBER 01' },
