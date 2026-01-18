@@ -3,6 +3,7 @@
   transform: translateZ(0); /* GPU acceleration */
   -webkit-transform: translateZ(0);
   cursor: grab;
+  touch-action: manipulation; /* Prevent zoom on double-tap */
 }
 
 .dangling-letter:active {
@@ -17,9 +18,79 @@
   shape-rendering: geometricPrecision; /* Smooth curves */
 }
 
+/* Tap burst effect - brutalist radial lines */
+.tap-burst {
+  position: fixed;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+}
+
+.tap-burst::before,
+.tap-burst::after {
+  content: '';
+  position: absolute;
+  background: var(--color-black);
+  animation: tap-burst-expand 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Create 8 radial lines using pseudo-elements and box-shadow */
+.tap-burst::before {
+  width: 3px;
+  height: 3px;
+  top: 0;
+  left: 0;
+  box-shadow:
+    /* Line 1 - up */
+    0 -30px 0 0 var(--color-black),
+    /* Line 2 - up-right */ 21px -21px 0 0 var(--color-black),
+    /* Line 3 - right */ 30px 0 0 0 var(--color-black),
+    /* Line 4 - down-right */ 21px 21px 0 0 var(--color-black),
+    /* Line 5 - down */ 0 30px 0 0 var(--color-black),
+    /* Line 6 - down-left */ -21px 21px 0 0 var(--color-black),
+    /* Line 7 - left */ -30px 0 0 0 var(--color-black),
+    /* Line 8 - up-left */ -21px -21px 0 0 var(--color-black);
+  animation: tap-burst-dots 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes tap-burst-dots {
+  0% {
+    opacity: 1;
+    transform: scale(0);
+    box-shadow:
+      0 -10px 0 0 var(--color-black),
+      7px -7px 0 0 var(--color-black),
+      10px 0 0 0 var(--color-black),
+      7px 7px 0 0 var(--color-black),
+      0 10px 0 0 var(--color-black),
+      -7px 7px 0 0 var(--color-black),
+      -10px 0 0 0 var(--color-black),
+      -7px -7px 0 0 var(--color-black);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+    box-shadow:
+      0 -60px 0 0 var(--color-black),
+      42px -42px 0 0 var(--color-black),
+      60px 0 0 0 var(--color-black),
+      42px 42px 0 0 var(--color-black),
+      0 60px 0 0 var(--color-black),
+      -42px 42px 0 0 var(--color-black),
+      -60px 0 0 0 var(--color-black),
+      -42px -42px 0 0 var(--color-black);
+  }
+}
+
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   .dangling-letter {
     animation: none !important;
+  }
+
+  .tap-burst {
+    display: none;
   }
 }
