@@ -18,7 +18,7 @@ body {
   color: var(--color-black);
   background-color: var(--color-white);
   cursor: none; /* Hidden for custom cursor */
-  overflow-x: hidden;
+  overflow: hidden; /* Prevent any scrolling on hero-only page */
 }
 
 /* Restore cursor on touch devices */
@@ -124,8 +124,8 @@ button:active {
   border-radius: 0 !important;
 }
 
-/* NO box shadows */
-* {
+/* NO box shadows (except tap burst effect) */
+*:not(.tap-burst):not(.tap-burst::before) {
   box-shadow: none !important;
 }
 
