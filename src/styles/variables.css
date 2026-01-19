@@ -50,3 +50,14 @@
     --spacing-large: 40px;
   }
 }
+
+/* Landscape mobile - short viewport height */
+@media (max-height: 500px) and (orientation: landscape) {
+  :root {
+    --font-size-h1: 48px;
+    --font-size-h2: 36px;
+    --font-size-h3: 24px;
+    --spacing-section: 40px;
+    --spacing-large: 30px;
+  }
+}
