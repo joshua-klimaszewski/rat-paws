@@ -40,7 +40,7 @@ function Hero() {
     }
   }, [])
 
-  const isMobile = windowWidth <= 768
+  const isMobile = windowWidth <= 768 || (windowHeight <= 500 && windowWidth > windowHeight)
 
   // Calculate anchor positions with varied string lengths
   const getAnchorPositions = () => {
@@ -60,29 +60,24 @@ function Hero() {
     // P: medium-long, A: short, W: longest (dramatic), S: medium
     const lengthVariations = [0.92, 0.85, 1.05, 0.95, 0.82, 1.12, 0.88]
 
-    // Tight letter spacing within each word (smaller on mobile)
-    const letterSpacing = isMobile ? 32 : 100
+    // Distribute letters across viewport with gap between RAT and PAWS
+    // Right buffer larger to account for string attachment offset (letterSize * 0.25)
+    const stringOffset = isMobile ? 12 : 30
+    const leftBuffer = isMobile ? 55 : 115
+    const rightBuffer = leftBuffer + stringOffset
+    const availableWidth = windowWidth - leftBuffer - rightBuffer
 
-    // Large gap between RAT and PAWS
-    const wordGap = isMobile ? 50 : 250
+    // Gap units: normal letter gaps = 1, word gap (between T and P) = 3
+    // R-A: 1, A-T: 1, T-P: 3, P-A: 1, A-W: 1, W-S: 1 = 8 total units
+    const totalUnits = 8
+    const unitWidth = availableWidth / totalUnits
 
-    // Calculate total width needed
-    const ratWidth = letterSpacing * 2 // 2 gaps for R-A-T
-    const pawsWidth = letterSpacing * 3 // 3 gaps for P-A-W-S
-    const totalWidth = ratWidth + wordGap + pawsWidth
-
-    // Center the whole thing in viewport
-    const startX = (windowWidth - totalWidth) / 2
+    // Calculate x positions based on accumulated units
+    // R=0, A=1, T=2, P=5 (after word gap), A=6, W=7, S=8
+    const unitPositions = [0, 1, 2, 5, 6, 7, 8]
 
     const positions = letters.map((_, i) => {
-      let x
-      if (i < 3) {
-        // RAT - left group, tightly spaced
-        x = startX + letterSpacing * i
-      } else {
-        // PAWS - right group, after the gap
-        x = startX + ratWidth + wordGap + letterSpacing * (i - 3)
-      }
+      const x = leftBuffer + unitPositions[i] * unitWidth
 
       return {
         x,

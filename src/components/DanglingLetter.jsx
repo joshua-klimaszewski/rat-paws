@@ -134,9 +134,12 @@ const DanglingLetter = forwardRef(function DanglingLetter(
     const letterHalfWidth = isMobile ? 20 : 40
 
     // Boundaries - account for letter width so letters don't get cut off
-    const horizontalPadding = isMobile ? 20 : 40
-    const minX = horizontalPadding + letterHalfWidth
-    const maxX = windowWidth - horizontalPadding - letterHalfWidth
+    // Right padding larger to account for string attachment offset (letterSize * 0.25)
+    const stringOffset = isMobile ? 12 : 30
+    const leftPadding = isMobile ? 55 : 115
+    const rightPadding = leftPadding + stringOffset
+    const minX = leftPadding
+    const maxX = windowWidth - rightPadding
     const minY = anchorY + 15
     const maxY = anchorY + stringLength + 30
 
@@ -260,13 +263,7 @@ const DanglingLetter = forwardRef(function DanglingLetter(
       const letterSize = isMobile ? 48 : 120
 
       // String attachment point: top-center of the letter
-      // The letter's Framer Motion position is its top-left corner BEFORE the CSS transform
-      // CSS transform: translate(-50%, 0%) shifts the rendered letter LEFT by half its width
-      // This means the visual center of the letter is at (letterState.x, letterState.y + height/2)
-      // And the visual top-center is at (letterState.x, letterState.y)
-      // BUT - the strings are appearing on the LEFT, meaning we need to add an X offset
-      // This is because the letter glyph doesn't fill the full em-square
-      // Add roughly 1/4 of letterSize to shift attachment toward visual center
+      // Offset to align with visual glyph center (glyphs aren't centered in em-square)
       let attachX = letterState.x + letterSize * 0.25
       let attachY = letterState.y + letterSize * 0.12 // extend slightly into letter top
 
@@ -442,7 +439,7 @@ const DanglingLetter = forwardRef(function DanglingLetter(
         <motion.path
           d={stringPath}
           stroke="var(--color-black)"
-          strokeWidth="2"
+          strokeWidth="3"
           fill="none"
           strokeLinecap="round"
         />
