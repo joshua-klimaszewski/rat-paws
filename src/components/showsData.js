@@ -23,8 +23,8 @@ export const shows = [
       blurb:
         "We played in support of 3 great bands at a great new venue for Linda's birthday. We wore wigs/pigtails in classic Scorpion fashion and ate Holy Bowlz before going on the stage for a little extra fuel.",
       photoCredit: {
-        name: '@KATANDMAUS',
-        url: 'https://www.instagram.com/katandmaus',
+        name: '@KATANDMAUS_',
+        url: 'https://www.instagram.com/katandmaus_',
       },
       photos: [
         'DSCF0625.jpg',
