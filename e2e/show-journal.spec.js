@@ -20,7 +20,7 @@ test.describe('Show Journal Pages', () => {
       await expect(page.locator('.photo-credit')).toContainText('PHOTOS BY')
       await expect(page.locator('.photo-credit a')).toHaveAttribute(
         'href',
-        'https://www.instagram.com/katandmaus'
+        'https://www.instagram.com/katandmaus_'
       )
     })
 
