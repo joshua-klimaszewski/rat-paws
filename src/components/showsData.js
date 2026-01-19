@@ -1,0 +1,65 @@
+export const shows = [
+  {
+    date: '2025-08-17',
+    venue: 'OUTER LIMITS',
+    location: 'DETROIT, MI',
+    with: 'SHADY COVE, NANCY FRIDAY, ARLO BETLEY',
+    slug: 'outer-limits',
+  },
+  {
+    date: '2025-08-25',
+    venue: 'GINGKO RECORDS',
+    location: 'DETROIT, MI',
+    with: 'CASSIE RAMONE, CHLOE DRALLOS',
+    slug: 'gingko-records',
+  },
+  {
+    date: '2025-10-24',
+    venue: 'PARIS BAR',
+    location: 'DETROIT, MI',
+    with: 'STEF CHURA, MIRROR MASK, PRETTY ISLANDS',
+    slug: 'paris-bar',
+    journal: {
+      blurb:
+        "We played in support of 3 great bands at a great new venue for Linda's birthday. We wore wigs/pigtails in classic Scorpion fashion and ate Holy Bowlz before going on the stage for a little extra fuel.",
+      photoCredit: {
+        name: '@KATANDMAUS',
+        url: 'https://www.instagram.com/katandmaus',
+      },
+      photos: [
+        'DSCF0625.jpg',
+        'DSCF0660.jpg',
+        'DSCF0665.jpg',
+        'DSCF0685.jpg',
+        'DSCF0700.jpg',
+        'DSCF0728.jpg',
+        'DSCF0749.jpg',
+        'DSCF0750.jpg',
+        'DSCF0755.jpg',
+        'DSCF0777.jpg',
+        'DSCF0784.jpg',
+        'DSCF0800.jpg',
+      ],
+    },
+  },
+  {
+    date: '2025-11-19',
+    venue: 'WCBN LOCAL MUSIC SHOW',
+    location: 'ANN ARBOR, MI',
+    slug: 'wcbn',
+  },
+  {
+    date: '2025-12-22',
+    venue: 'BOWLERO LOUNGE',
+    location: 'ROYAL OAK, MI',
+    with: 'DEADBEAT BEAT',
+    slug: 'bowlero-lounge',
+  },
+  {
+    date: '2026-01-16',
+    venue: 'MOONDOG CAFE',
+    location: 'DETROIT, MI',
+    with: 'MODERN NATURE, BRIGID DAWSON & THE MOTHERS NETWORK',
+    slug: 'moondog-cafe',
+  },
+]

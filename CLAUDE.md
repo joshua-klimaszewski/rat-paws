@@ -46,6 +46,8 @@ src/
     About.jsx          - Band bio and member cards
     Music.jsx          - Discography and streaming links
     Shows.jsx          - Tour dates table
+    ShowJournal.jsx    - Individual show journal page
+    showsData.js       - Shared show data for Shows and ShowJournal
     Gallery.jsx        - Photo/video grid with fullscreen expansion
     Contact.jsx        - Contact info and merch links
     Navigation.jsx     - Fixed navigation with smooth scroll
@@ -56,6 +58,49 @@ src/
   App.jsx              - Main app component
   main.jsx             - React entry point
 ```
+
+## Page Architecture
+
+### Routes
+
+- `/` - Hero page
+- `/about` - Band bio
+- `/music` - Discography
+- `/shows` - All shows list
+- `/shows/:slug` - Individual show journal page
+- `/gallery` - Photo/video gallery
+
+### Adding a New Show
+
+1. **Add to shows array** in `src/components/showsData.js`:
+
+   ```js
+   {
+     date: 'YYYY-MM-DD',
+     venue: 'VENUE NAME',
+     location: 'CITY, STATE',
+     with: 'OTHER ACTS',  // optional
+     slug: 'venue-name',  // lowercase, hyphenated
+   }
+   ```
+
+2. **For past shows with photos**, add journal data:
+
+   ```js
+   journal: {
+     blurb: 'Show recap text...',
+     photoCredit: { name: '@photographer', url: 'https://...' },
+     photos: ['1.jpg', '2.jpg', '3.jpg']
+   }
+   ```
+
+3. **Add images** to `/public/[slug]/` folder (e.g., `/public/paris-bar/`)
+
+### Show Journal Page Behavior
+
+- Past shows without journals show "NO PHOTOS YET" placeholder
+- Past shows with journals show blurb + photo grid with lightbox
+- Future shows are not clickable (no journal pages)
 
 ## Deployment
 
