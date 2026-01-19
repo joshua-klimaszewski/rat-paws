@@ -26,3 +26,7 @@ dist-ssr
 
 # Backup files
 *.backup
+
+# Test artifacts
+playwright-report
+test-results
