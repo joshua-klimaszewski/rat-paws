@@ -61,6 +61,12 @@ const DanglingLetter = forwardRef(function DanglingLetter(
   const motionX = useMotionValue(anchorX)
   const motionY = useMotionValue(anchorY + 20)
 
+  // Create explicit transform string for Firefox compatibility
+  const motionTransform = useTransform(
+    [motionX, motionY],
+    ([x, y]) => `translate(${x}px, ${y}px) translate(-50%, 0%)`
+  )
+
   // Multi-segment string points for rope simulation
   const NUM_SEGMENTS = isMobile ? 5 : 8
   const stringPointsRef = useRef([])
@@ -449,8 +455,6 @@ const DanglingLetter = forwardRef(function DanglingLetter(
       <motion.div
         className="dangling-letter"
         style={{
-          x: motionX,
-          y: motionY,
           position: 'absolute',
           fontSize: 'var(--font-size-h1)',
           fontWeight: 'var(--font-weight-bold)',
@@ -461,7 +465,8 @@ const DanglingLetter = forwardRef(function DanglingLetter(
           userSelect: 'none',
           cursor: 'grab',
           zIndex: 1000,
-          transform: 'translate(-50%, 0%)',
+          transform: motionTransform,
+          WebkitTransform: motionTransform,
         }}
         whileHover={{
           scale: 1.1,
