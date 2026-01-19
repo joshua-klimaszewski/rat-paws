@@ -18,7 +18,6 @@ body {
   color: var(--color-black);
   background-color: var(--color-white);
   cursor: none; /* Hidden for custom cursor */
-  overflow: hidden; /* Prevent any scrolling on hero-only page */
 }
 
 /* Restore cursor on touch devices */
