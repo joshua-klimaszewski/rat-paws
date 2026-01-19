@@ -73,6 +73,13 @@
   margin-top: 3px;
 }
 
+.show-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  width: 100%;
+}
+
 .show-tickets {
   font-size: 14px;
   font-weight: var(--font-weight-normal);

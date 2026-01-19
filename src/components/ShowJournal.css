@@ -1,0 +1,266 @@
+.show-journal {
+  min-height: calc(100vh - 60px);
+  background-color: var(--color-white);
+  color: var(--color-black);
+  padding: 80px 40px;
+}
+
+.show-journal .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header */
+.journal-header {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 60px;
+}
+
+.back-link {
+  font-size: 14px;
+  font-family: 'Courier New', monospace;
+  text-decoration: none;
+  color: var(--color-black);
+  opacity: 0.6;
+  margin-bottom: 20px;
+  transition: opacity var(--duration-normal) ease;
+}
+
+.back-link:hover {
+  opacity: 1;
+  color: var(--color-accent);
+}
+
+.journal-date {
+  font-size: 13px;
+  font-family: 'Courier New', monospace;
+  opacity: 0.5;
+}
+
+.journal-venue {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: var(--line-height-tight);
+  margin: 0;
+}
+
+.journal-location {
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.6;
+}
+
+.journal-with {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.5;
+}
+
+/* Blurb */
+.journal-blurb {
+  margin-bottom: 60px;
+  max-width: 800px;
+}
+
+.journal-blurb p {
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-normal);
+  margin: 0 0 20px 0;
+}
+
+.photo-credit {
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+.photo-credit a {
+  color: var(--color-black);
+  text-decoration: underline;
+  transition: color var(--duration-normal) ease;
+}
+
+.photo-credit a:hover {
+  color: var(--color-accent);
+}
+
+/* Photo Grid */
+.journal-photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.photo-item {
+  cursor: pointer;
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  background-color: var(--color-black);
+}
+
+.photo-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--duration-normal) var(--easing-smooth);
+}
+
+.photo-item:hover img {
+  transform: scale(1.05);
+}
+
+/* No Photos Placeholder */
+.no-photos {
+  padding: 80px 0;
+  text-align: center;
+}
+
+.no-photos p {
+  font-size: 24px;
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.4;
+}
+
+/* Not Found */
+.not-found {
+  padding: 80px 0;
+  text-align: center;
+}
+
+.not-found h1 {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  margin: 0 0 40px 0;
+}
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 40px;
+}
+
+.lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 48px;
+  color: var(--color-white);
+  background: none;
+  border: none;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  transition: color var(--duration-normal) ease;
+}
+
+.lightbox-close:hover {
+  color: var(--color-accent);
+}
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 36px;
+  color: var(--color-white);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 20px;
+  transition: color var(--duration-normal) ease;
+}
+
+.lightbox-nav:hover {
+  color: var(--color-accent);
+}
+
+.lightbox-prev {
+  left: 20px;
+}
+
+.lightbox-next {
+  right: 20px;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .show-journal {
+    padding: 60px 20px;
+  }
+
+  .journal-header {
+    margin-bottom: 40px;
+  }
+
+  .journal-venue {
+    font-size: var(--font-size-h3);
+  }
+
+  .journal-location {
+    font-size: 14px;
+  }
+
+  .journal-with {
+    font-size: 12px;
+  }
+
+  .journal-blurb {
+    margin-bottom: 40px;
+  }
+
+  .journal-photo-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .lightbox {
+    padding: 20px;
+  }
+
+  .lightbox img {
+    max-width: 100%;
+    max-height: 80%;
+  }
+
+  .lightbox-close {
+    top: 10px;
+    right: 15px;
+    font-size: 36px;
+  }
+
+  .lightbox-nav {
+    font-size: 24px;
+    padding: 10px;
+  }
+
+  .lightbox-prev {
+    left: 10px;
+  }
+
+  .lightbox-next {
+    right: 10px;
+  }
+}

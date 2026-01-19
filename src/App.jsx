@@ -5,6 +5,7 @@ import Hero from './components/Hero'
 import About from './components/About'
 import Music from './components/Music'
 import Shows from './components/Shows'
+import ShowJournal from './components/ShowJournal'
 import Gallery from './components/Gallery'
 import Footer from './components/Footer'
 import './App.css'
@@ -20,6 +21,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/music" element={<Music />} />
           <Route path="/shows" element={<Shows />} />
+          <Route path="/shows/:slug" element={<ShowJournal />} />
           <Route path="/gallery" element={<Gallery />} />
         </Routes>
       </main>

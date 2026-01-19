@@ -1,45 +1,9 @@
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { shows } from './showsData'
 import './Shows.css'
 
 function Shows() {
-  const shows = [
-    {
-      date: '2025-08-17',
-      venue: 'OUTER LIMITS',
-      location: 'DETROIT, MI',
-      with: 'SHADY COVE, NANCY FRIDAY, ARLO BETLEY',
-    },
-    {
-      date: '2025-08-25',
-      venue: 'GINGKO RECORDS',
-      location: 'DETROIT, MI',
-      with: 'CASSIE RAMONE, CHLOE DRALLOS',
-    },
-    {
-      date: '2025-10-24',
-      venue: 'PARIS BAR',
-      location: 'DETROIT, MI',
-      with: 'STEF CHURA, MIRROR MASK, PRETTY ISLANDS',
-    },
-    {
-      date: '2025-11-19',
-      venue: 'WCBN LOCAL MUSIC SHOW',
-      location: 'ANN ARBOR, MI',
-    },
-    {
-      date: '2025-12-22',
-      venue: 'BOWLERO LOUNGE',
-      location: 'ROYAL OAK, MI',
-      with: 'DEADBEAT BEAT',
-    },
-    {
-      date: '2026-01-16',
-      venue: 'MOONDOG CAFE',
-      location: 'DETROIT, MI',
-      with: 'MODERN NATURE, BRIGID DAWSON & THE MOTHERS NETWORK',
-    },
-  ]
-
   const isShowPast = (showDate) => {
     const today = new Date()
     today.setHours(0, 0, 0, 0)
@@ -67,6 +31,15 @@ function Shows() {
     return dateB - dateA
   })
 
+  const ShowContent = ({ show }) => (
+    <div className="show-info">
+      <span className="show-date">{show.date}</span>
+      <span className="show-venue">{show.venue}</span>
+      <span className="show-location">{show.location}</span>
+      {show.with && <span className="show-with">WITH {show.with}</span>}
+    </div>
+  )
+
   return (
     <section className="shows">
       <div className="container">
@@ -81,12 +54,13 @@ function Shows() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1, duration: 0.4 }}
               >
-                <div className="show-info">
-                  <span className="show-date">{show.date}</span>
-                  <span className="show-venue">{show.venue}</span>
-                  <span className="show-location">{show.location}</span>
-                  {show.with && <span className="show-with">WITH {show.with}</span>}
-                </div>
+                {isPast ? (
+                  <Link to={`/shows/${show.slug}`} className="show-link">
+                    <ShowContent show={show} />
+                  </Link>
+                ) : (
+                  <ShowContent show={show} />
+                )}
               </motion.div>
             )
           })}
