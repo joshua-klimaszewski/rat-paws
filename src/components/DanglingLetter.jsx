@@ -269,8 +269,8 @@ const DanglingLetter = forwardRef(function DanglingLetter(
       const letterSize = isMobile ? 48 : 120
 
       // String attachment point: top-center of the letter
-      // Offset to align with visual glyph center (glyphs aren't centered in em-square)
-      let attachX = letterState.x + letterSize * 0.25
+      // With transform: translate(-50%, 0%), letterState.x is the visual center
+      let attachX = letterState.x
       let attachY = letterState.y + letterSize * 0.12 // extend slightly into letter top
 
       // Special case for W (index 5) - the middle dips down, so attach lower
