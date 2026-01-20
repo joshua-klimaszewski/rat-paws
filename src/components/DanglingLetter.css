@@ -1,9 +1,13 @@
 .dangling-letter {
   will-change: transform;
-  transform: translateZ(0); /* GPU acceleration */
-  -webkit-transform: translateZ(0);
   cursor: grab;
   touch-action: manipulation; /* Prevent zoom on double-tap */
+  /* Force GPU acceleration for smooth animations */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  /* Ensure transform origin is set */
+  transform-origin: center center;
+  -webkit-transform-origin: center center;
 }
 
 .dangling-letter:active {
