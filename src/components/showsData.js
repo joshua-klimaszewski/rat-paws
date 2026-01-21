@@ -62,4 +62,11 @@ export const shows = [
     with: 'MODERN NATURE, BRIGID DAWSON & THE MOTHERS NETWORK',
     slug: 'moondog-cafe',
   },
+  {
+    date: '2026-03-12',
+    venue: 'OUTER LIMITS LOUNGE',
+    location: 'DETROIT, MI',
+    with: 'CELEBRITY SIGHTING',
+    slug: 'outer-limits-lounge',
+  },
 ]
