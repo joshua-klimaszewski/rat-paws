@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test'
 test.describe('Show Journal Pages', () => {
   test.describe('Paris Bar (with journal)', () => {
     test('displays show metadata', async ({ page }) => {
-      await page.goto('/rat-paws/shows/paris-bar')
+      await page.goto('/rat-paws/shows/paris-bar-2025-10-24')
 
       await expect(page.locator('.journal-venue')).toContainText('PARIS BAR')
       await expect(page.locator('.journal-date')).toContainText('2025-10-24')
@@ -14,7 +14,7 @@ test.describe('Show Journal Pages', () => {
     })
 
     test('displays blurb and photo credit', async ({ page }) => {
-      await page.goto('/rat-paws/shows/paris-bar')
+      await page.goto('/rat-paws/shows/paris-bar-2025-10-24')
 
       await expect(page.locator('.journal-blurb p').first()).toBeVisible()
       await expect(page.locator('.photo-credit')).toContainText('PHOTOS BY')
@@ -25,18 +25,18 @@ test.describe('Show Journal Pages', () => {
     })
 
     test('displays photo grid with images', async ({ page }) => {
-      await page.goto('/rat-paws/shows/paris-bar')
+      await page.goto('/rat-paws/shows/paris-bar-2025-10-24')
 
       const photos = page.locator('.journal-photo-grid .photo-item')
       await expect(photos).toHaveCount(12)
 
       // Verify first image loads correctly
       const firstImg = photos.first().locator('img')
-      await expect(firstImg).toHaveAttribute('src', /paris-bar\/DSCF0625\.jpg/)
+      await expect(firstImg).toHaveAttribute('src', /paris-bar-2025-10-24\/DSCF0625\.jpg/)
     })
 
     test('opens lightbox on photo click', async ({ page }) => {
-      await page.goto('/rat-paws/shows/paris-bar')
+      await page.goto('/rat-paws/shows/paris-bar-2025-10-24')
 
       // Click first photo
       await page.locator('.photo-item').first().click()
@@ -48,7 +48,7 @@ test.describe('Show Journal Pages', () => {
     })
 
     test('lightbox navigation works', async ({ page }) => {
-      await page.goto('/rat-paws/shows/paris-bar')
+      await page.goto('/rat-paws/shows/paris-bar-2025-10-24')
 
       await page.locator('.photo-item').first().click()
       await expect(page.locator('.lightbox')).toBeVisible()
@@ -68,7 +68,7 @@ test.describe('Show Journal Pages', () => {
     })
 
     test('lightbox closes on X click', async ({ page }) => {
-      await page.goto('/rat-paws/shows/paris-bar')
+      await page.goto('/rat-paws/shows/paris-bar-2025-10-24')
 
       await page.locator('.photo-item').first().click()
       await expect(page.locator('.lightbox')).toBeVisible()
@@ -78,7 +78,7 @@ test.describe('Show Journal Pages', () => {
     })
 
     test('lightbox closes on overlay click', async ({ page }) => {
-      await page.goto('/rat-paws/shows/paris-bar')
+      await page.goto('/rat-paws/shows/paris-bar-2025-10-24')
 
       await page.locator('.photo-item').first().click()
       await expect(page.locator('.lightbox')).toBeVisible()
@@ -91,7 +91,7 @@ test.describe('Show Journal Pages', () => {
 
   test.describe('Show without journal', () => {
     test('displays show metadata without photo grid', async ({ page }) => {
-      await page.goto('/rat-paws/shows/outer-limits')
+      await page.goto('/rat-paws/shows/outer-limits-2025-08-17')
 
       await expect(page.locator('.journal-venue')).toContainText('OUTER LIMITS')
       await expect(page.locator('.journal-date')).toContainText('2025-08-17')
@@ -110,7 +110,7 @@ test.describe('Show Journal Pages', () => {
 
   test.describe('Navigation', () => {
     test('back link returns to shows list', async ({ page }) => {
-      await page.goto('/rat-paws/shows/paris-bar')
+      await page.goto('/rat-paws/shows/paris-bar-2025-10-24')
 
       await page.locator('.back-link').click()
       await expect(page).toHaveURL(/\/shows$/)
@@ -123,7 +123,7 @@ test.describe('Show Journal Pages', () => {
       const parisBarLink = page.locator('.show-link', { hasText: 'PARIS BAR' })
       await parisBarLink.click()
 
-      await expect(page).toHaveURL(/\/shows\/paris-bar/)
+      await expect(page).toHaveURL(/\/shows\/paris-bar-2025-10-24/)
       await expect(page.locator('.journal-venue')).toContainText('PARIS BAR')
     })
   })
