@@ -80,7 +80,7 @@ src/
      venue: 'VENUE NAME',
      location: 'CITY, STATE',
      with: 'OTHER ACTS',  // optional
-     slug: 'venue-name',  // lowercase, hyphenated
+     slug: 'venue-name-YYYY-MM-DD',  // lowercase, hyphenated, with date
    }
    ```
 
@@ -94,7 +94,7 @@ src/
    }
    ```
 
-3. **Add images** to `/public/[slug]/` folder (e.g., `/public/paris-bar/`)
+3. **Add images** to `/public/[slug]/` folder (e.g., `/public/paris-bar-2025-10-24/`)
 
 ### Show Journal Page Behavior
 
